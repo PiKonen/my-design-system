@@ -8,10 +8,10 @@ interface InputProps {
 }
 
 // Figma: Design system PI › TextArea (node 18:5)
-// Figma Spacing/S (16px) -> spacing-medium inset; Splacing/XS (8px) ->
-// spacing-small radius; text/body/md (Work Sans Regular 16 / 1.25).
+// Figma Spacing/S (16px) -> spacing-medium inset; radius/md (8px) -> radius-md;
+// text/body/md (Work Sans Regular 16 / 1.25).
 const field = [
-  'w-full p-medium rounded-[var(--spacing-small)] border',
+  'w-full p-medium rounded-md border',
   'font-body text-base font-normal leading-[1.25]',
   'bg-white text-body placeholder:text-body',
   'focus:outline-none focus:border-2',

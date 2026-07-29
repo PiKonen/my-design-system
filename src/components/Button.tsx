@@ -1,29 +1,43 @@
 type ButtonVariant = 'primary' | 'secondary';
+type ButtonSize = 'large' | 'small';
 
 interface ButtonProps {
   label: string;
   variant?: ButtonVariant;
+  size?: ButtonSize;
   onClick: () => void;
   disabled?: boolean;
 }
 
 // Figma: Design system PI › Button (node 1:231)
-// Shared box: Spacing/M (24px) inline, Spacing/S (16px) block, 40px radius,
-// text/button/lg (Work Sans SemiBold 16 / -2% tracking).
-// The 2px border is always present so the Focus state cannot shift layout —
-// Primary carries it transparent until focused.
+// Variant (Primary · Secondary) × State (Default · Hover · Focus · Disabled ·
+// Pressed) × Size (Large · Small) = 20 variants.
+// Everything size-independent lives here: radius/full (40px, clamps to a pill at
+// both sizes) and the 2px border, which is always present so the Focus state
+// cannot shift layout — Primary carries it transparent until focused.
 const base =
-  'font-body font-semibold text-base tracking-[-0.32px] whitespace-nowrap ' +
+  'font-body font-semibold whitespace-nowrap ' +
   'inline-flex items-center justify-center ' +
-  'px-6 py-4 rounded-[40px] border-2 border-solid ' +
+  'rounded-full border-2 border-solid ' +
   'transition-colors cursor-pointer ' +
   'focus-visible:outline-none disabled:cursor-not-allowed';
 
-// The pressed (:active) state is NOT in the Figma set — it has only Default,
-// Hover, Focus and Disabled. Both fills below are derived by continuing the
-// primary ramp one step past Hover, using tokens already in index.css:
-//   Primary:   500 #9285EA -> hover 600 #756AC2 -> active 800 #433B7D
-//   Secondary: white -> hover 100 #F3F1FF -> active 200 #D5CFF9
+// Size carries padding and type only — the colour ramp below is shared, so the
+// two sizes cannot drift apart.
+//   Large: Spacing/M 24 inline, Spacing/S 16 block, text/button/lg (16)
+//   Small: Spacing/S 16 inline, Spacing/XS 8 block, text/button/s  (14)
+// Tracking is -2% of the font size in both rows, per the two text styles.
+// Large's 24px inline padding has no spacing token (the scale is 8/16/32/48) so
+// it stays on Tailwind's numeric step; every other value here is a token.
+const sizes: Record<ButtonSize, string> = {
+  large: 'px-6 py-4 text-base tracking-[-0.32px]',
+  small: 'px-medium py-small text-sm tracking-[-0.28px]',
+};
+
+// Hover, Focus, Disabled and Pressed all exist in the Figma set and are matched
+// here exactly. The ramp:
+//   Primary:   500 #9285EA -> hover 600 #756AC2 -> pressed 800 #433B7D
+//   Secondary: white -> hover 100 #F3F1FF -> pressed 200 #D5CFF9
 // Primary deliberately skips 700 (#5D53A1): that is the focus border colour,
 // and reusing it as the fill would hide the focus ring while pressed.
 const variants: Record<ButtonVariant, string> = {
@@ -41,9 +55,19 @@ const variants: Record<ButtonVariant, string> = {
     'disabled:bg-grey-20 disabled:border-grey-40 disabled:text-grey-100',
 };
 
-export function Button({ label, variant = 'primary', onClick, disabled = false }: ButtonProps) {
+export function Button({
+  label,
+  variant = 'primary',
+  size = 'large',
+  onClick,
+  disabled = false,
+}: ButtonProps) {
   return (
-    <button onClick={onClick} disabled={disabled} className={`${base} ${variants[variant]}`}>
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className={`${base} ${sizes[size]} ${variants[variant]}`}
+    >
       {label}
     </button>
   );

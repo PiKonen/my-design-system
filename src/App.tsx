@@ -194,6 +194,33 @@ function App() {
           </div>
         </section>
 
+        <section className="flex flex-col gap-4">
+          <h2 className="font-display text-xl text-body">Button sizes</h2>
+          <p className="font-body text-sm text-body">
+            Figma Size=Large / Size=Small. Small steps the padding down to 16/8 and the label to
+            text/button/s (14px); the colour ramp and all five states are shared, so the two sizes
+            cannot drift apart.
+          </p>
+
+          <div className="flex gap-4 items-center">
+            <span className="w-28 font-body text-sm text-body">Large</span>
+            <Button label="Button" variant="primary" onClick={() => {}} />
+            <Button label="Button" variant="secondary" onClick={() => {}} />
+          </div>
+
+          <div className="flex gap-4 items-center">
+            <span className="w-28 font-body text-sm text-body">Small</span>
+            <Button label="Button" variant="primary" size="small" onClick={() => {}} />
+            <Button label="Button" variant="secondary" size="small" onClick={() => {}} />
+          </div>
+
+          <div className="flex gap-4 items-center">
+            <span className="w-28 font-body text-sm text-body">Small disabled</span>
+            <Button label="Button" variant="primary" size="small" onClick={() => {}} disabled />
+            <Button label="Button" variant="secondary" size="small" onClick={() => {}} disabled />
+          </div>
+        </section>
+
         <section className="flex flex-col gap-small">
           <h2 className="font-display text-xl text-body">Checkbox states</h2>
           <p className="font-body text-sm text-body">
@@ -226,7 +253,7 @@ function App() {
           </div>
         </section>
 
-        <div className="w-full max-w-md p-4 bg-white rounded-xl border border-border flex flex-col gap-2">
+        <div className="w-full max-w-md p-4 bg-white rounded-lg border border-border flex flex-col gap-2">
           <Label label="Email address" />
           <Input
             value={email}

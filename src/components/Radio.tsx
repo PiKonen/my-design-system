@@ -12,6 +12,10 @@ interface RadioProps {
 
 // Figma: Design system PI › Radiobutton (node 149:8)
 // A 24px circle in a 28px slot, same geometry as Checkbox but fully rounded.
+// Figma binds this to radius/lg (12px), which on a 24px box IS the circle.
+// Here it stays rounded-full (radius/full, 40px): border-radius clamps to half
+// the shorter side, so it renders the same 12px circle, and it keeps rendering
+// a circle if the 24px size ever changes — rounded-lg would not.
 // Focus is a 1px outline at 1px offset, landing on the design's 28px outer edge
 // without shifting layout.
 // Token mapping: color/ui/grey-100 -> grey-100, color/ui/grey-80 -> grey-80,

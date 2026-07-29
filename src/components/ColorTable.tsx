@@ -68,7 +68,7 @@ export function ColorTable({ groups }: ColorTableProps) {
                 <td className="w-large py-small">
                   <span
                     data-token={token.name}
-                    className={`${token.swatchClass} block size-large rounded-[var(--spacing-small)] border border-border-dark`}
+                    className={`${token.swatchClass} block size-large rounded-md border border-border-dark`}
                   />
                 </td>
                 <td className="py-small pl-medium">
