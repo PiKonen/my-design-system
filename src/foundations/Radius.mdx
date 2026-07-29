@@ -1,0 +1,41 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+import { ScaleTable } from './ScaleTable'
+import { RADIUS_SCALE } from './tokens'
+
+<Meta title="Foundations/Radius" />
+
+# Radius
+
+Four steps, mirroring Figma's `radius` variable collection. Every radius-bearing
+node in the Figma components — all 52 of them — is bound to one of these.
+
+<ScaleTable tokens={RADIUS_SCALE} kind="radius" />
+
+## These names deliberately shadow Tailwind's
+
+Tailwind ships its own `--radius-*` scale where `sm` is 4px, `md` is 6px and `lg`
+is 8px. Only `sm` would have matched. Declaring these tokens under the same names
+overrides that scale, which is the point: if `radius-md` were named something else,
+`rounded-md` would still exist and still resolve to 6px — an off-token value one
+keystroke away from the real one. Overriding leaves no radius utility that is not a
+token.
+
+A consequence worth remembering: **`rounded-full` is 40px here, not `9999px`.**
+
+## `rounded-full` and clamping
+
+CSS clamps `border-radius` to half the shorter side, so a 40px radius renders as a
+pill on a tall button and as a perfect circle on a small box. That is why:
+
+- **Button** uses `rounded-full` and reads as a pill.
+- **Radio** also uses `rounded-full` and reads as a circle on its 24px box, even
+  though Figma expresses the same circle as `radius/lg` (12px). `rounded-full` was
+  chosen over `rounded-lg` because it keeps rendering a circle if that 24px size
+  ever changes, where `rounded-lg` would quietly become a squircle.
+
+## No 24px step
+
+The large Button's inline padding is 24px, which has no token in either scale
+(spacing runs 8/16/32/48). It stays on Tailwind's numeric `px-6`. Everything else
+in the components is tokenised — this is the one deliberate exception, and a 24px
+token would close it.

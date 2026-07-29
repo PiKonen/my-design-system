@@ -19,5 +19,7 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["vite.config.ts"]
+  /* .storybook/main.ts is a node-context config file just like vite.config.ts:
+     node types, no DOM lib. Its browser half, preview.tsx, is in tsconfig.app.json. */
+  "include": ["vite.config.ts", ".storybook/main.ts"]
 }

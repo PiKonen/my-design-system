@@ -1,0 +1,44 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+import { TypeTable } from '../components/TypeTable'
+import { TYPE_STYLES } from './tokens'
+
+<Meta title="Foundations/Typography" />
+
+# Typography
+
+Two families, both loaded from Google Fonts in `src/index.css`:
+
+- **`font-display`** — Roboto Serif. Headings and card titles.
+- **`font-body`** — Work Sans. Body copy, labels, buttons.
+
+Each row below mirrors one Figma text style. Samples all render in `text-body` so
+the comparison is purely typographic — colour is a separate token axis.
+
+<TypeTable tokens={TYPE_STYLES} />
+
+## Mapping Figma to Tailwind
+
+**Figma AUTO line height maps to `leading-[normal]`,** which is the font's own
+natural metric rather than a ratio.
+
+**Figma's −2% tracking is size-dependent,** so it cannot be one shared utility —
+it becomes an explicit px value per step:
+
+| Size | −2% tracking |
+|---|---|
+| 40px | `tracking-[-0.8px]` |
+| 32px | `tracking-[-0.64px]` |
+| 22px | `tracking-[-0.44px]` |
+| 16px | `tracking-[-0.32px]` |
+| 14px | `tracking-[-0.28px]` |
+
+**Roboto Serif Light (300) is required** by `text/display/l` and is why the font
+import requests weight 300.
+
+## A known difference from Figma
+
+Rendered line boxes are taller than Figma's. Figma uses AUTO line height (≈1.19×
+the font size) while Tailwind's `text-base` is 1.5 and `text-sm` ≈1.43. On the
+Button this shows up as 60px rendered vs 51px in Figma at the large size, and 40px
+vs 32px at small. The proportions between sizes hold; the absolute heights differ.
+Worth knowing before pixel-comparing a screenshot against the Figma frame.
