@@ -29,9 +29,11 @@ function App() {
         links={[
           { label: 'Home', href: '/' },
           // Replaces the old "Docs" item. Relative rather than localhost:6006 so it
-          // survives deployment. Served out of public/storybook, which
-          // `npm run build-storybook:embed` populates (or `npm run build:all` for
-          // the app plus Storybook in one go).
+          // survives deployment. `npm run build` populates public/storybook and
+          // Vite copies it into dist/ — the build has to produce it, because on a
+          // static host (Vercel) there is no Vite server and so no middleware to
+          // fall back on. For local dev only, `npm run build-storybook:embed`
+          // refreshes it on its own.
           // The trailing slash is load-bearing: Storybook references its assets
           // relatively (./sb-manager/...), so they only resolve under /storybook/.
           { label: 'Storybook', href: '/storybook/' },
