@@ -22,7 +22,8 @@ export function Card({ heading, body, image, href }: CardProps) {
     </>
   );
 
-  const base = 'flex flex-col bg-white rounded-xl border border-border overflow-hidden';
+  // Figma: Design system PI › Card (node 275:23) — radius/lg (12px).
+  const base = 'flex flex-col bg-white rounded-lg border border-border overflow-hidden';
 
   if (href) {
     return (
