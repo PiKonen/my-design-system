@@ -48,8 +48,8 @@ function serveEmbeddedStorybook(): Plugin {
      output and is not committed — so it is absent on a fresh clone.</p>
   <p>Build it once:</p>
   <pre>npm run build-storybook:embed</pre>
-  <p>Then reload this page. To build the app and Storybook together, use
-     <code>npm run build:all</code>. To run Storybook standalone on its own port
+  <p>Then reload this page. <code>npm run build</code> also produces it, which is
+     what deployed builds rely on. To run Storybook standalone on its own port
      instead, use <code>npm run storybook</code>.</p>
   <p><a href="/">Back to the app</a></p>
 </body></html>`
