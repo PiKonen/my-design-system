@@ -27,9 +27,16 @@ function App() {
       <Nav
         logo="My App"
         links={[
-          { label: 'Home', href: '#' },
-          { label: 'Docs', href: '#' },
-          { label: 'About', href: '#' },
+          { label: 'Home', href: '/' },
+          // Replaces the old "Docs" item. A relative path rather than
+          // localhost:6006 so it survives deployment — it resolves once the built
+          // Storybook is served alongside this app under /storybook:
+          //   npm run build-storybook -- -o public/storybook
+          // Until that is wired up (or Storybook is hosted at that path) the link
+          // is inert; it is deliberately not pointed at the dev server, which
+          // would be a dead link for everyone but the person who ran it.
+          { label: 'Storybook', href: '/storybook' },
+          { label: 'About', href: '/about' },
         ]}
       />
 
