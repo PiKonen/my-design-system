@@ -1,0 +1,38 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+import { IconTable } from '../components/IconTable'
+import { ICONS } from './tokens'
+
+<Meta title="Foundations/Icons" />
+
+# Icons
+
+Twenty icons, each a React component taking a `size` prop and inheriting colour
+from `className`. The table exercises both axes.
+
+`figmaName` is the source name in the Figma ICONS frame (node 185:17). It differs
+from the code name wherever Figma carries a design-time size suffix (`-L`) or a
+variant index (`Settings-6`) that has no meaning in code.
+
+<IconTable icons={ICONS} />
+
+## Usage
+
+```tsx
+import { Search, Heart } from './components/icons'
+
+<Search />                          {/* default size */}
+<Search size={32} />                {/* explicit size */}
+<Heart className="text-error" />    {/* colour via utility, not a prop */}
+```
+
+Colour is deliberately **not** a prop. Icons inherit `currentColor`, so they take
+their colour from any text utility on themselves or an ancestor — which means they
+compose with the colour tokens instead of duplicating them.
+
+## Note on the check glyph
+
+`Check` is the same asset the Checkbox and Radio render as their selected glyph.
+Its master component in Figma strokes at `color/ui/grey-100` (the icon default),
+and the Checkbox overrides it to `color/ui/white` per-instance so the master stays
+usable everywhere else. If you place a bare `Check` on a dark fill, you will need
+to set the colour yourself.

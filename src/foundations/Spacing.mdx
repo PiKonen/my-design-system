@@ -1,0 +1,37 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+import { ScaleTable } from './ScaleTable'
+import { SPACING_SCALE } from './tokens'
+
+<Meta title="Foundations/Spacing" />
+
+# Spacing
+
+Four named steps, mapping to Figma's `Spacing/XS · S · M · L`. Because they live in
+the `--spacing-*` namespace, each one generates the full family of utilities —
+`p-`, `px-`, `py-`, `m-`, `gap-`, `w-`, `h-` and so on.
+
+<ScaleTable tokens={SPACING_SCALE} kind="spacing" />
+
+## Named steps vs Tailwind's numeric scale
+
+Tailwind's numeric utilities (`p-4`, `gap-6`) still work, computed from its base
+`--spacing` unit. Both exist, which means the same 16px can be written two ways:
+`p-medium` or `p-4`.
+
+Prefer the **named** token. It carries the intent and tracks Figma; the numeric one
+is a coincidence that happens to land on the same pixel value.
+
+## The 24px gap
+
+There is no token for 24px, which is Figma's `Spacing/M` for the large Button's
+inline padding. That component keeps `px-6`, and it is the only intentionally
+untokenised spacing value in the library. Small buttons step down to
+`px-medium py-small`, both fully tokenised.
+
+## A fixed misuse worth remembering
+
+`Input` used to set its corner radius with `rounded-[var(--spacing-small)]` — a
+spacing token doing a radius job. It resolved to the correct 8px, but it would not
+have followed a change to Figma's `radius/md`. It is now `rounded-md`. Reach for
+[Radius](?path=/docs/foundations-radius--docs) tokens for corners, and keep the
+spacing scale for space.

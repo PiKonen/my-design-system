@@ -22,5 +22,7 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"]
+  /* preview.tsx is browser-side React that imports index.css, so it needs the DOM
+     lib, jsx and vite/client's *.css declarations that this project already has. */
+  "include": ["src", ".storybook/preview.tsx"]
 }
