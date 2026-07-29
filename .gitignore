@@ -31,3 +31,7 @@ dist-ssr
 
 *storybook.log
 storybook-static
+
+# Storybook built into public/ by build-storybook:embed so the app can serve it
+# at /storybook. Build output, not source — regenerate it, do not commit it.
+public/storybook

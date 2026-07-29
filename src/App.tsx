@@ -28,14 +28,13 @@ function App() {
         logo="My App"
         links={[
           { label: 'Home', href: '/' },
-          // Replaces the old "Docs" item. A relative path rather than
-          // localhost:6006 so it survives deployment — it resolves once the built
-          // Storybook is served alongside this app under /storybook:
-          //   npm run build-storybook -- -o public/storybook
-          // Until that is wired up (or Storybook is hosted at that path) the link
-          // is inert; it is deliberately not pointed at the dev server, which
-          // would be a dead link for everyone but the person who ran it.
-          { label: 'Storybook', href: '/storybook' },
+          // Replaces the old "Docs" item. Relative rather than localhost:6006 so it
+          // survives deployment. Served out of public/storybook, which
+          // `npm run build-storybook:embed` populates (or `npm run build:all` for
+          // the app plus Storybook in one go).
+          // The trailing slash is load-bearing: Storybook references its assets
+          // relatively (./sb-manager/...), so they only resolve under /storybook/.
+          { label: 'Storybook', href: '/storybook/' },
           { label: 'About', href: '/about' },
         ]}
       />

@@ -7,7 +7,10 @@ import storybook from 'eslint-plugin-storybook'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist', 'storybook-static']),
+  // All three are build output. public/storybook in particular is a bundled
+  // Storybook: linting it reports hundreds of failures from rules its own source
+  // references but this config does not define.
+  globalIgnores(['dist', 'storybook-static', 'public/storybook']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
