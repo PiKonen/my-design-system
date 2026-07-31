@@ -6,11 +6,13 @@
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "files": ["dist"],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
-    }
+    },
+    "./styles.css": "./dist/index.css"
   },
   "scripts": {
     "dev": "vite",
@@ -20,7 +22,9 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "build-storybook:embed": "storybook build -o public/storybook",
-    "build:lib": "vite build --config vite.lib.config.ts"
+    "build:lib": "vite build --config vite.lib.config.ts",
+    "prepare": "npm run build:lib",
+    "prepublishOnly": "rm -rf dist && npm run build:lib"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",

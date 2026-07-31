@@ -8,10 +8,6 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
-    // Reuses the existing compiler options for type info, just adds emission for
-    // this build only. entryRoot flattens output to dist/index.d.ts so it matches
-    // the "types" path in package.json; the app shell and stories are not part of
-    // the published surface.
     dts({
       tsconfigPath: "./tsconfig.app.json",
       entryRoot: "src",
@@ -19,6 +15,10 @@ export default defineConfig({
       exclude: ["src/**/*.stories.tsx", "src/App.tsx", "src/main.tsx"],
     }),
   ],
+  // The app build serves `public/` (which holds the embedded Storybook) out of
+  // the same `dist`. Without this, Vite copies all of it back in and "files":
+  // ["dist"] ships a multi-megabyte Storybook to consumers.
+  publicDir: false,
   build: {
     lib: {
       entry: resolve(__dirname, "src/index.ts"),
@@ -27,6 +27,9 @@ export default defineConfig({
     },
     rollupOptions: {
       external: ["react", "react-dom"],
+      output: {
+        assetFileNames: "index.css", // pins the extracted CSS filename so package.json's export path is guaranteed correct
+      },
     },
     emptyOutDir: false,
     outDir: "dist",
