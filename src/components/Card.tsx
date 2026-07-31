@@ -10,8 +10,8 @@ export function Card({ heading, body, image, href }: CardProps) {
     <>
       {image && <img src={image} alt={heading} className="w-full h-48 object-cover" />}
       <div className="p-6 flex flex-col gap-small">
-        {/* Figma text/display/xs — Roboto Serif SemiBold 16 / AUTO leading / -2% */}
-        <h3 className="font-display font-semibold text-base leading-[normal] tracking-[-0.32px] text-body">
+        {/* text/display/xs — Roboto Serif SemiBold 16 / AUTO leading / normal tracking */}
+        <h3 className="font-display font-semibold text-base leading-[normal] text-body">
           {heading}
         </h3>
         {/* Figma text/body/s — Work Sans Regular 14 / 125%. Body is full-strength

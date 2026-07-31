@@ -8,8 +8,8 @@ import { TYPE_STYLES } from './tokens'
 
 Two families, both loaded from Google Fonts in `src/index.css`:
 
-- **`font-display`** — Roboto Serif. Headings and card titles.
-- **`font-body`** — Work Sans. Body copy, labels, buttons.
+- **`font-display`** — Roboto Serif. The two largest headings and card titles.
+- **`font-body`** — Work Sans. Body copy, labels, buttons, and `display/s`.
 
 Each row below mirrors one Figma text style. Samples all render in `text-body` so
 the comparison is purely typographic — colour is a separate token axis.
@@ -21,19 +21,24 @@ the comparison is purely typographic — colour is a separate token axis.
 **Figma AUTO line height maps to `leading-[normal]`,** which is the font's own
 natural metric rather than a ratio.
 
-**Figma's −2% tracking is size-dependent,** so it cannot be one shared utility —
-it becomes an explicit px value per step:
-
-| Size | −2% tracking |
-|---|---|
-| 40px | `tracking-[-0.8px]` |
-| 32px | `tracking-[-0.64px]` |
-| 22px | `tracking-[-0.44px]` |
-| 16px | `tracking-[-0.32px]` |
-| 14px | `tracking-[-0.28px]` |
-
 **Roboto Serif Light (300) is required** by `text/display/l` and is why the font
 import requests weight 300.
+
+## Two departures from Figma
+
+The scale follows the live site (`dig-video-94863958.figma.site`) where it and the
+Figma file disagree:
+
+**`display/s` is Work Sans, not Roboto Serif.** The site's `.h3` is Work Sans
+Medium 22, so the serif stops after `display/md`. The token keeps its `display`
+name because that is still its role in the hierarchy, but it resolves to
+`font-body`.
+
+**No negative tracking.** Figma specifies −2% on the display and button styles.
+The site ships `letter-spacing: 0` on body copy and declares none at all on
+headings and buttons, so every step here sits at normal tracking. `Button` and
+`Card` were carrying the old `tracking-[-0.32px]` / `-0.28px` inline and no
+longer do.
 
 ## A known difference from Figma
 

@@ -14,24 +14,31 @@ import {
 // template interpolation: Tailwind scans source text, so `bg-${prefix}-${step}`
 // would generate no CSS and the swatch would silently render transparent.
 
-// Mirrors the Figma text styles one-for-one. Figma AUTO line height maps to
-// leading-[normal]; Figma's -2% tracking is size-dependent, hence the explicit
-// px values (-2% of 40 = -0.8px, of 32 = -0.64px, of 22 = -0.44px, of 16 = -0.32px,
-// of 14 = -0.28px).
+// Mirrors the Figma text styles one-for-one, with two deliberate departures that
+// track the live site (dig-video-94863958.figma.site) instead:
+//
+//   1. display/s is font-body, not font-display. The site's .h3 is Work Sans
+//      Medium 22 — the serif stops at display/md. The token keeps its
+//      `display` name because that is still its role in the hierarchy.
+//   2. No negative tracking anywhere. Figma specifies -2% on the display and
+//      button styles; the site ships letter-spacing 0 on body copy and none at
+//      all on headings and buttons, so every step here sits at normal.
+//
+// Figma AUTO line height still maps to leading-[normal].
 const SAMPLE = 'Build your own team library';
 
 export const TYPE_STYLES: TypeToken[] = [
-  { name: 'text/display/l', sample: SAMPLE, className: 'font-display font-light text-[40px] leading-[normal] tracking-[-0.8px]' },
-  { name: 'text/display/md', sample: SAMPLE, className: 'font-display font-medium text-[32px] leading-[normal] tracking-[-0.64px]' },
-  { name: 'text/display/s', sample: SAMPLE, className: 'font-display font-medium text-[22px] leading-[normal] tracking-[-0.44px]' },
-  { name: 'text/display/xs', sample: SAMPLE, className: 'font-display font-semibold text-base leading-[normal] tracking-[-0.32px]' },
+  { name: 'text/display/l', sample: SAMPLE, className: 'font-display font-light text-[40px] leading-[normal]' },
+  { name: 'text/display/md', sample: SAMPLE, className: 'font-display font-medium text-[32px] leading-[normal]' },
+  { name: 'text/display/s', sample: SAMPLE, className: 'font-body font-medium text-[22px] leading-[normal]' },
+  { name: 'text/display/xs', sample: SAMPLE, className: 'font-display font-semibold text-base leading-[normal]' },
   { name: 'text/body/lg', sample: SAMPLE, className: 'font-body font-normal text-xl leading-[1.25]' },
   { name: 'text/body/md', sample: SAMPLE, className: 'font-body font-normal text-base leading-[1.25]' },
   { name: 'text/body/md-em', sample: SAMPLE, className: 'font-body font-semibold text-base leading-[1.25]' },
   { name: 'text/body/md-link', sample: SAMPLE, className: 'font-body font-normal text-base leading-[1.25] underline' },
   { name: 'text/body/s', sample: SAMPLE, className: 'font-body font-normal text-sm leading-[1.25]' },
-  { name: 'text/button/lg', sample: SAMPLE, className: 'font-body font-semibold text-base leading-[normal] tracking-[-0.32px]' },
-  { name: 'text/button/s', sample: SAMPLE, className: 'font-body font-semibold text-sm leading-[normal] tracking-[-0.28px]' },
+  { name: 'text/button/lg', sample: SAMPLE, className: 'font-body font-semibold text-base leading-[normal]' },
+  { name: 'text/button/s', sample: SAMPLE, className: 'font-body font-semibold text-sm leading-[normal]' },
 ];
 
 export const COLOR_GROUPS: ColorGroup[] = [

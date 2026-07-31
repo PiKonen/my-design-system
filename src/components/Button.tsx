@@ -26,12 +26,12 @@ const base =
 // two sizes cannot drift apart.
 //   Large: Spacing/M 24 inline, Spacing/S 16 block, text/button/lg (16)
 //   Small: Spacing/S 16 inline, Spacing/XS 8 block, text/button/s  (14)
-// Tracking is -2% of the font size in both rows, per the two text styles.
+// Both rows sit at normal tracking, per text/button/lg and text/button/s.
 // Large's 24px inline padding has no spacing token (the scale is 8/16/32/48) so
 // it stays on Tailwind's numeric step; every other value here is a token.
 const sizes: Record<ButtonSize, string> = {
-  large: 'px-6 py-4 text-base tracking-[-0.32px]',
-  small: 'px-medium py-small text-sm tracking-[-0.28px]',
+  large: 'px-6 py-4 text-base',
+  small: 'px-medium py-small text-sm',
 };
 
 // Hover, Focus, Disabled and Pressed all exist in the Figma set and are matched
