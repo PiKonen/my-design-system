@@ -1,4 +1,6 @@
-/* 300 is required by text/display/l (Roboto Serif Light 40). */
+/* 700 is required by text/display/l (Roboto Serif Bold 60). 300 is no longer used
+   by any token — display/l was its only consumer before it moved to Bold — but is
+   kept so consumers can still write font-display font-light. */
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Serif:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap');
 

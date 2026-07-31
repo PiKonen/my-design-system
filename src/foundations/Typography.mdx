@@ -21,24 +21,26 @@ the comparison is purely typographic — colour is a separate token axis.
 **Figma AUTO line height maps to `leading-[normal]`,** which is the font's own
 natural metric rather than a ratio.
 
-**Roboto Serif Light (300) is required** by `text/display/l` and is why the font
-import requests weight 300.
+## Which source each step follows
 
-## Two departures from Figma
+The Figma file and the live site (`dig-video-94863958.figma.site`) disagree, so the
+authority is recorded per token.
 
-The scale follows the live site (`dig-video-94863958.figma.site`) where it and the
-Figma file disagree:
+**`display/l` follows Figma** — node `1:241`, style `text/display/l`: Roboto Serif
+Bold 60px, leading 1.12, −2% tracking (`tracking-[-1.2px]`). It is the only step
+with tracking and the only display step with a numeric leading. The site's `h1` is
+Light 40px with no tracking; that version is deliberately not used.
 
-**`display/s` is Work Sans, not Roboto Serif.** The site's `.h3` is Work Sans
-Medium 22, so the serif stops after `display/md`. The token keeps its `display`
-name because that is still its role in the hierarchy, but it resolves to
-`font-body`.
+**Every other step follows the site.** Two consequences:
 
-**No negative tracking.** Figma specifies −2% on the display and button styles.
-The site ships `letter-spacing: 0` on body copy and declares none at all on
-headings and buttons, so every step here sits at normal tracking. `Button` and
-`Card` were carrying the old `tracking-[-0.32px]` / `-0.28px` inline and no
-longer do.
+`display/s` is Work Sans, not Roboto Serif. The site's `.h3` is Work Sans Medium
+22, so the serif stops after `display/md`. The token keeps its `display` name
+because that is still its role in the hierarchy, but it resolves to `font-body`.
+
+No tracking anywhere below `display/l`. Figma specifies −2% on the remaining
+display and button styles; the site declares none on headings and buttons and
+`letter-spacing: 0` on body copy. `Button` and `Card` were carrying
+`tracking-[-0.32px]` / `-0.28px` inline and no longer do.
 
 ## A known difference from Figma
 

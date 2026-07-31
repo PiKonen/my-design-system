@@ -14,21 +14,25 @@ import {
 // template interpolation: Tailwind scans source text, so `bg-${prefix}-${step}`
 // would generate no CSS and the swatch would silently render transparent.
 
-// Mirrors the Figma text styles one-for-one, with two deliberate departures that
-// track the live site (dig-video-94863958.figma.site) instead:
+// The scale has two authorities, and they disagree. Which one wins is per-token:
 //
-//   1. display/s is font-body, not font-display. The site's .h3 is Work Sans
-//      Medium 22 — the serif stops at display/md. The token keeps its
-//      `display` name because that is still its role in the hierarchy.
-//   2. No negative tracking anywhere. Figma specifies -2% on the display and
-//      button styles; the site ships letter-spacing 0 on body copy and none at
-//      all on headings and buttons, so every step here sits at normal.
+//   - display/l follows FIGMA (node 1:241, style text/display/l): Roboto Serif
+//     Bold 60 / 1.12 leading / -2% tracking = -1.2px. This is the only token
+//     carrying tracking, and the only one with a numeric leading on a display
+//     step. The site's h1 is Light 40 with no tracking — deliberately not used.
+//   - every other step follows the live site (dig-video-94863958.figma.site):
+//     display/s is font-body, not font-display, because the site's .h3 is Work
+//     Sans Medium 22 — the serif stops at display/md. The token keeps its
+//     `display` name because that is still its role in the hierarchy. And no
+//     other step has tracking, because the site declares none on headings and
+//     buttons and letter-spacing 0 on body copy.
 //
-// Figma AUTO line height still maps to leading-[normal].
+// Where a step is not given an explicit ratio, Figma AUTO line height maps to
+// leading-[normal].
 const SAMPLE = 'Build your own team library';
 
 export const TYPE_STYLES: TypeToken[] = [
-  { name: 'text/display/l', sample: SAMPLE, className: 'font-display font-light text-[40px] leading-[normal]' },
+  { name: 'text/display/l', sample: SAMPLE, className: 'font-display font-bold text-[60px] leading-[1.12] tracking-[-1.2px]' },
   { name: 'text/display/md', sample: SAMPLE, className: 'font-display font-medium text-[32px] leading-[normal]' },
   { name: 'text/display/s', sample: SAMPLE, className: 'font-body font-medium text-[22px] leading-[normal]' },
   { name: 'text/display/xs', sample: SAMPLE, className: 'font-display font-semibold text-base leading-[normal]' },
