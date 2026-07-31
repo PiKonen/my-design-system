@@ -1,7 +1,7 @@
 {
   "name": "pinx-ui",
   "private": false,
-  "version": "0.1.0",
+  "version": "0.1.2",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -12,7 +12,8 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./styles.css": "./dist/index.css"
+    "./styles.css": "./dist/index.css",
+    "./theme.css": "./dist/theme.css"
   },
   "scripts": {
     "dev": "vite",
@@ -22,7 +23,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "build-storybook:embed": "storybook build -o public/storybook",
-    "build:lib": "vite build --config vite.lib.config.ts",
+    "build:lib": "vite build --config vite.lib.config.ts && cp src/theme.css dist/theme.css",
     "prepare": "npm run build:lib",
     "prepublishOnly": "rm -rf dist && npm run build:lib"
   },
