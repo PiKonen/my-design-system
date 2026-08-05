@@ -12,7 +12,7 @@ interface InputProps {
 // text/body/md (Work Sans Regular 16 / 1.25).
 const field = [
   'w-full p-medium rounded-md border',
-  'font-body text-base font-normal leading-[1.25]',
+  'font-body text-body-md',
   'bg-white text-body placeholder:text-body',
   'focus:outline-none focus:border-2',
   'enabled:hover:text-body-disabled enabled:hover:placeholder:text-body-disabled',

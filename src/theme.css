@@ -70,6 +70,75 @@
   --font-display:         "Roboto Serif", serif;
   --font-body:            "Work Sans", sans-serif;
 
+  /* ── Type scale ──────────────────────────────────────────────────────────
+     One utility per Figma text style: size, leading, tracking and weight
+     bundled, so consumers never hand-write type values. Mirrors TYPE_STYLES in
+     foundations/tokens.ts, which now reads these tokens rather than restating
+     them — the scale has one home.
+     The font FAMILY is not part of a --text-* token, so each step still needs
+     its family utility alongside it. The pairing is not uniform: display/s is
+     font-body, because the serif stops at display/md. The family each step
+     expects is noted per line.
+     Figma AUTO line height maps to `normal`. Tracking is written in em so it
+     tracks the size: Figma's -2% on display/l is -1.2px at 60, and -0.64px at
+     32 on display/md — both -0.02em. */
+
+  /* text/display/l — Roboto Serif Bold 60 / 1.12 / -2%. font-display.
+     Follows Figma (node 1:241), not the live site's Light 40 h1. */
+  --text-display-l:                 60px;
+  --text-display-l--line-height:    1.12;
+  --text-display-l--letter-spacing: -0.02em;
+  --text-display-l--font-weight:    700;
+
+  /* text/display/md — Roboto Serif Medium 32 / AUTO / -2%. font-display. */
+  --text-display-md:                 32px;
+  --text-display-md--line-height:    normal;
+  --text-display-md--letter-spacing: -0.02em;
+  --text-display-md--font-weight:    500;
+
+  /* text/display/s — Work Sans Medium 22 / AUTO. font-BODY, not display. */
+  --text-display-s:                 22px;
+  --text-display-s--line-height:    normal;
+  --text-display-s--font-weight:    500;
+
+  /* text/display/xs — Roboto Serif SemiBold 16 / AUTO. font-display.
+     Card and ImageCard headings. */
+  --text-display-xs:                 16px;
+  --text-display-xs--line-height:    normal;
+  --text-display-xs--font-weight:    600;
+
+  /* text/body/lg — Work Sans Regular 20 / 125%. font-body. */
+  --text-body-lg:                 20px;
+  --text-body-lg--line-height:    1.25;
+  --text-body-lg--font-weight:    400;
+
+  /* text/body/md — Work Sans Regular 16 / 125%. font-body. Default copy. */
+  --text-body-md:                 16px;
+  --text-body-md--line-height:    1.25;
+  --text-body-md--font-weight:    400;
+
+  /* text/body/md-em — Work Sans SemiBold 16 / 125%. font-body. Inline <strong>.
+     The md-link style is body/md plus `underline`; a text decoration is not
+     part of a font-size token, so there is no separate token for it. */
+  --text-body-md-em:                 16px;
+  --text-body-md-em--line-height:    1.25;
+  --text-body-md-em--font-weight:    600;
+
+  /* text/body/s — Work Sans Regular 14 / 125%. font-body. */
+  --text-body-s:                 14px;
+  --text-body-s--line-height:    1.25;
+  --text-body-s--font-weight:    400;
+
+  /* text/button/lg — Work Sans SemiBold 16 / AUTO. font-body. */
+  --text-button-lg:                 16px;
+  --text-button-lg--line-height:    normal;
+  --text-button-lg--font-weight:    600;
+
+  /* text/button/s — Work Sans SemiBold 14 / AUTO. font-body. */
+  --text-button-s:                 14px;
+  --text-button-s--line-height:    normal;
+  --text-button-s--font-weight:    600;
+
   /* ── Spacing ────────────────────────────────────────────────────────── */
   --spacing-small:        8px;
   --spacing-medium:       16px;
