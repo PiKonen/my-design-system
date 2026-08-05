@@ -58,6 +58,15 @@ export const Linked: Story = {
   args: { href: '#' },
 }
 
+/**
+ * Omitting both `title` and `description` drops the caption panel entirely, so
+ * the image stays bare in every state — the gallery case, a grid of photographs
+ * with no per-image copy, and Figma's State=Default.
+ */
+export const NoCaption: Story = {
+  args: { title: undefined, description: undefined },
+}
+
 /** A longer description wraps inside the panel's 70% max width. */
 export const LongDescription: Story = {
   args: {

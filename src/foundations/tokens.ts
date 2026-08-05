@@ -23,26 +23,36 @@ import {
 //   - every other step follows the live site (dig-video-94863958.figma.site):
 //     display/s is font-body, not font-display, because the site's .h3 is Work
 //     Sans Medium 22 — the serif stops at display/md. The token keeps its
-//     `display` name because that is still its role in the hierarchy. And no
-//     other step has tracking, because the site declares none on headings and
-//     buttons and letter-spacing 0 on body copy.
+//     `display` name because that is still its role in the hierarchy. Body copy
+//     and buttons declare no tracking.
+//   - display/md now carries Figma's -2% too: the mobile landing page h1
+//     (my-website node 22:138) binds text/display/md, and that style tracks
+//     -0.64px = -2% at 32. Nothing in code used display/md before, so the only
+//     thing that changes is this table.
 //
 // Where a step is not given an explicit ratio, Figma AUTO line height maps to
 // leading-[normal].
+//
+// The size, leading, tracking and weight of each step are TOKENS (--text-* in
+// theme.css) and are not restated here — a step is `text-<name>` plus its family
+// utility, because a font family is not part of a --text-* token. The families
+// do not follow the names uniformly: display/s is font-body. body/md-link is
+// body/md plus a text decoration, which no font-size token can carry, so it is
+// the one step with an extra utility.
 const SAMPLE = 'Build your own team library';
 
 export const TYPE_STYLES: TypeToken[] = [
-  { name: 'text/display/l', sample: SAMPLE, className: 'font-display font-bold text-[60px] leading-[1.12] tracking-[-1.2px]' },
-  { name: 'text/display/md', sample: SAMPLE, className: 'font-display font-medium text-[32px] leading-[normal]' },
-  { name: 'text/display/s', sample: SAMPLE, className: 'font-body font-medium text-[22px] leading-[normal]' },
-  { name: 'text/display/xs', sample: SAMPLE, className: 'font-display font-semibold text-base leading-[normal]' },
-  { name: 'text/body/lg', sample: SAMPLE, className: 'font-body font-normal text-xl leading-[1.25]' },
-  { name: 'text/body/md', sample: SAMPLE, className: 'font-body font-normal text-base leading-[1.25]' },
-  { name: 'text/body/md-em', sample: SAMPLE, className: 'font-body font-semibold text-base leading-[1.25]' },
-  { name: 'text/body/md-link', sample: SAMPLE, className: 'font-body font-normal text-base leading-[1.25] underline' },
-  { name: 'text/body/s', sample: SAMPLE, className: 'font-body font-normal text-sm leading-[1.25]' },
-  { name: 'text/button/lg', sample: SAMPLE, className: 'font-body font-semibold text-base leading-[normal]' },
-  { name: 'text/button/s', sample: SAMPLE, className: 'font-body font-semibold text-sm leading-[normal]' },
+  { name: 'text/display/l', sample: SAMPLE, className: 'font-display text-display-l' },
+  { name: 'text/display/md', sample: SAMPLE, className: 'font-display text-display-md' },
+  { name: 'text/display/s', sample: SAMPLE, className: 'font-body text-display-s' },
+  { name: 'text/display/xs', sample: SAMPLE, className: 'font-display text-display-xs' },
+  { name: 'text/body/lg', sample: SAMPLE, className: 'font-body text-body-lg' },
+  { name: 'text/body/md', sample: SAMPLE, className: 'font-body text-body-md' },
+  { name: 'text/body/md-em', sample: SAMPLE, className: 'font-body text-body-md-em' },
+  { name: 'text/body/md-link', sample: SAMPLE, className: 'font-body text-body-md underline' },
+  { name: 'text/body/s', sample: SAMPLE, className: 'font-body text-body-s' },
+  { name: 'text/button/lg', sample: SAMPLE, className: 'font-body text-button-lg' },
+  { name: 'text/button/s', sample: SAMPLE, className: 'font-body text-button-s' },
 ];
 
 export const COLOR_GROUPS: ColorGroup[] = [
