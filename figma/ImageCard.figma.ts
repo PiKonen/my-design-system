@@ -21,13 +21,17 @@ const state = instance.getEnum('State', {
 // `src` and `alt` have no Figma counterpart — the component set uses a placeholder
 // rect (color/ui/default-bg), and alt text is authored per use, not per design. Both
 // are required props, so they are emitted as placeholders for the developer to fill.
+//
+// `title` and `description` are optional props, so an empty Figma text property is
+// omitted rather than emitted as `title=""`. Clearing both yields the bare,
+// caption-less form — the gallery case.
 export default {
   example: figma.code`
     <ImageCard
       src={imageSrc}
       alt="Describe the image for screen readers"
-      title="${title}"
-      description="${description}"
+      ${title ? `title="${title}"` : ''}
+      ${description ? `description="${description}"` : ''}
       ${state === 'hover' ? 'href="#"' : ''}
     />
   `,
