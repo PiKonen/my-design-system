@@ -10,5 +10,4 @@ export { Label } from "./components/Label";
 export { Nav } from "./components/Nav";
 export { NavLink } from "./components/NavLink";
 export { Tag } from "./components/Tag";
-export { Check } from "./components/icons/Check";
-// add any other icons/components you want consumers to be able to import
+export * from "./components/icons";
