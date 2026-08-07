@@ -8,5 +8,6 @@ export { Input } from "./components/Input";
 export { Radio } from "./components/Radio";
 export { Label } from "./components/Label";
 export { Nav } from "./components/Nav";
+export { Tag } from "./components/Tag";
 export { Check } from "./components/icons/Check";
 // add any other icons/components you want consumers to be able to import
