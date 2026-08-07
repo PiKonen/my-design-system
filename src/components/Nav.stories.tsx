@@ -5,15 +5,15 @@ const meta = {
   title: 'Components/Nav',
   component: Nav,
   args: {
-    logo: 'My App',
+    siteName: 'My Portfolio',
     links: [
-      { label: 'Home', href: '/' },
-      { label: 'Docs', href: '/docs' },
+      { label: 'Work', href: '/work' },
       { label: 'About', href: '/about' },
+      { label: 'Contact', href: '/contact' },
     ],
   },
   argTypes: {
-    logo: { control: 'text' },
+    siteName: { control: 'text' },
   },
   parameters: {
     // Nav is a full-width sticky bar, so the padded default would misrepresent it.
@@ -21,8 +21,14 @@ const meta = {
     docs: {
       description: {
         component: [
-          'A sticky full-width bar: white background, `border-border` bottom rule, and an',
-          'inner `max-w-5xl` container so content lines up with the page below it.',
+          'Figma: Design system PI › Navigation (node 345:18).',
+          '',
+          'A sticky full-width bar — white background, `color/ui/grey-20` bottom rule, and',
+          'an inner `max-w-5xl` container so content lines up with the page below it.',
+          '',
+          'The links are `NavLink` instances, matching the Figma node. Hover and focus',
+          'therefore belong to NavLink and cannot be set from the controls panel — point',
+          'at a link for the tinted pill, or Tab to it for the ring.',
           '',
           'Links are keyed by `href`, so entries must have distinct hrefs. Several links',
           "sharing one href — `'#'` placeholders, say — trigger a React duplicate-key",
@@ -39,13 +45,13 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {}
 
 export const SingleLink: Story = {
-  args: { links: [{ label: 'Home', href: '/' }] },
+  args: { links: [{ label: 'Work', href: '/work' }] },
 }
 
 export const ManyLinks: Story = {
   args: {
     links: [
-      { label: 'Home', href: '/' },
+      { label: 'Work', href: '/work' },
       { label: 'Components', href: '/components' },
       { label: 'Foundations', href: '/foundations' },
       { label: 'Docs', href: '/docs' },

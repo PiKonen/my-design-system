@@ -25,7 +25,7 @@ function App() {
   return (
     <div className="min-h-screen bg-surface">
       <Nav
-        logo="My App"
+        siteName="My App"
         links={[
           { label: 'Home', href: '/' },
           // Replaces the old "Docs" item. Relative rather than localhost:6006 so it
