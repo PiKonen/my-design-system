@@ -26,7 +26,13 @@ export default defineConfig({
       fileName: "index",
     },
     rollupOptions: {
-      external: ["react", "react-dom"],
+      // Subpaths too, not just the bare names: the automatic JSX transform
+      // emits imports of `react/jsx-runtime`, and an exact-match external
+      // misses it. It then gets bundled — as its CJS build, which carries a
+      // `require` shim that throws in a browser. Consumers' production builds
+      // see through that at bundle time, so this surfaces only in their dev
+      // server, as a blank page.
+      external: [/^react($|\/)/, /^react-dom($|\/)/],
       output: {
         assetFileNames: "index.css", // pins the extracted CSS filename so package.json's export path is guaranteed correct
       },
