@@ -12,6 +12,15 @@ Argument: $ARGUMENTS — a Figma frame/component URL (must include node-id).
   page, STOP and ask the user to confirm this is intentional before continuing —
   components belong on Design system core, not scattered across other pages.
 
+## 1a. Check for a component contract
+- Look for contracts/<ComponentName>.contract.json.
+- If it exists: treat it as authoritative. Match its props, states, and
+  variant matrix exactly. Reference brandOverridable tokens by cssVar, never
+  by their core value. If the Figma design or requested change doesn't match
+  the contract, STOP and report the mismatch instead of building around it.
+- If it doesn't exist: proceed as normal, but don't create a contract file
+  unprompted — that's a separate, deliberate step.
+
 ## 2. Check for an existing Code Connect mapping
 - Look up the Code Connect map for this node.
 - If a mapping already exists, report it and ask whether the user wants to
