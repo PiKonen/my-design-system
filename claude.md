@@ -24,3 +24,21 @@ Spacing:
 - Export components as named exports
 - Use Tailwind classes only — no inline styles
 - Every component needs a props interface at the top of the file
+
+## Component contracts
+Some components have a contract file in contracts/<ComponentName>.contract.json —
+a machine-readable spec of that component's props, states, and which tokens are
+brand-overridable vs. locked.
+
+If a contract exists for the component you're creating, editing, or reviewing:
+- Read it before touching any code.
+- Match its props, states, and variant matrix exactly — don't add, remove, or
+  rename anything without updating the contract first and flagging the change.
+- Never hardcode a value for a token listed under `brandOverridable` — always
+  reference the CSS variable (`cssVar`), never the `core` example value.
+- If what you're building doesn't match the contract (a prop is missing, a
+  state behaves differently), stop and report the mismatch rather than
+  silently building around it or silently updating the contract to match.
+
+If no contract exists yet for a component you're creating, don't invent one
+unprompted — ask whether one should be written first.
