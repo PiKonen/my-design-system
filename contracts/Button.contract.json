@@ -1,0 +1,59 @@
+{
+  "component": "Button",
+  "version": "0.4.3",
+  "figma": {
+    "file": "Design-system-PI",
+    "node": "1:231"
+  },
+  "code": {
+    "source": "src/components/Button.tsx",
+    "export": "Button"
+  },
+
+  "props": {
+    "label": { "type": "string", "required": true },
+    "variant": { "type": "enum", "options": ["primary", "secondary"], "default": "primary" },
+    "size": { "type": "enum", "options": ["large", "small"], "default": "large" },
+    "disabled": { "type": "boolean", "default": false },
+    "onClick": { "type": "function", "required": true }
+  },
+
+  "states": ["default", "hover", "focus", "pressed", "disabled"],
+
+  "variantMatrix": "variant (2) x size (2) x state (5) = 20 combinations, all present in the Figma component set",
+
+  "structural": {
+    "_note": "Fixed for every brand. A brand wrapper may not change these without a contract version bump.",
+    "layout": "inline-flex, items-center, justify-center, whitespace-nowrap",
+    "borderWidth": "2px solid, always present (including default/primary, where it's transparent) so focus never shifts layout",
+    "sizes": {
+      "large": { "paddingInline": "24px (off-scale, not a token)", "paddingBlock": "token(spacing.small)", "text": "token(type.button.lg)" },
+      "small": { "paddingInline": "token(spacing.small)", "paddingBlock": "token(spacing.xs)", "text": "token(type.button.s)" }
+    }
+  },
+
+  "tokens": {
+    "brandOverridable": {
+      "_note": "A brand theme may redefine these CSS custom properties. Structure and which state maps to which token stays fixed; only the resolved value changes.",
+      "radius.full": {
+        "cssVar": "--radius-full",
+        "usedFor": "corner radius, both sizes and both variants",
+        "core": "40px"
+      },
+      "color.primary.100": { "cssVar": "--color-primary-100", "usedFor": "secondary / hover fill", "core": "#F3F1FF" },
+      "color.primary.200": { "cssVar": "--color-primary-200", "usedFor": "secondary / pressed + focus fill", "core": "#D5CFF9" },
+      "color.primary.500": { "cssVar": "--color-primary-500", "usedFor": "primary / default fill, secondary / default border", "core": "#9285EA" },
+      "color.primary.600": { "cssVar": "--color-primary-600", "usedFor": "primary / hover fill", "core": "#756AC2" },
+      "color.primary.700": { "cssVar": "--color-primary-700", "usedFor": "focus border, both variants", "core": "#5D53A1" },
+      "color.primary.800": { "cssVar": "--color-primary-800", "usedFor": "primary / pressed fill", "core": "#433B7D" }
+    },
+    "locked": {
+      "_note": "Shared neutrals. Not brand-specific by design — disabled should look the same regardless of brand.",
+      "color.grey.20": { "cssVar": "--color-grey-20", "usedFor": "secondary / disabled fill" },
+      "color.grey.40": { "cssVar": "--color-grey-40", "usedFor": "secondary / disabled border" },
+      "color.grey.100": { "cssVar": "--color-grey-100", "usedFor": "primary / disabled fill, secondary / disabled text" },
+      "color.white": { "cssVar": "--color-white", "usedFor": "primary / text, secondary / default fill" },
+      "color.black": { "cssVar": "--color-black", "usedFor": "secondary / text" }
+    }
+  }
+}
