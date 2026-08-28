@@ -25,12 +25,10 @@ const meta = {
         component: [
           'Figma: Design system PI › Navigation (node 389:46).',
           '',
-          'A sticky full-width bar — white background, `color/ui/grey-20` bottom rule.',
-          '`device="Desktop"` shows NavLink items with `px-2xl` (64px) horizontal inset.',
-          '`device="Mobile"` shows a hamburger button with `px-s` (16px) inset.',
+          '`device="Desktop"` — full-width sticky bar, `px-2xl`, inline NavLinks.',
+          '`device="Mobile"` — `px-s`, hamburger button that toggles an open/close',
+          'panel of stacked NavLinks. Menu state is internal — no prop needed.',
           '',
-          'Pass `onMenuClick` to handle the hamburger button press in Mobile mode.',
-          'The links are `NavLink` instances; hover and focus belong to NavLink.',
           'Pass `active: true` on a link item to mark the current page.',
         ].join('\n'),
       },
@@ -54,16 +52,18 @@ export const DesktopWithActive: Story = {
   },
 }
 
-export const Mobile: Story = {
+export const MobileClosed: Story = {
   args: { device: 'Mobile' },
 }
 
-export const MobileMenuClick: Story = {
-  args: {
-    device: 'Mobile',
-    onMenuClick: () => alert('menu clicked'),
+/** Click the hamburger to open the menu panel. */
+export const MobileOpen: Story = {
+  args: { device: 'Mobile' },
+  play: async ({ canvas }) => {
+    const { userEvent } = await import('@storybook/test');
+    const btn = canvas.getByRole('button', { name: 'Open menu' });
+    await userEvent.click(btn);
   },
-  name: 'Mobile — onMenuClick wired',
 }
 
 /** Sticky behaviour only shows with content to scroll past. */
