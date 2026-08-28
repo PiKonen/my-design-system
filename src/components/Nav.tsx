@@ -23,7 +23,13 @@ interface NavProps {
 // automatically when the user follows a link (navigation unmounts the component)
 // or taps the ✕ button.
 //
-// Hamburger bar dimensions (20 × 2px) are icon geometry, not spacing tokens.
+// Close button is explicitly 36×30px (h-[30px] w-[36px]) to match the hamburger
+// button's geometry — if it were p-2xs (8px) around a 24px icon it would be 40px
+// and the bar would jump 10px taller when the menu opens. Icon geometry, not tokens.
+//
+// Mobile panel uses plain <a> block links (not NavLink) because the Figma
+// "Navigation links" frame (node 391:43) stacks 51px-tall frames with py-s (16px)
+// internal padding and zero gap — the NavLink pill shape doesn't apply here.
 export function Nav({ siteName, links, device = 'Desktop' }: NavProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const isMobile = device === 'Mobile';
@@ -48,19 +54,19 @@ export function Nav({ siteName, links, device = 'Desktop' }: NavProps) {
             ))}
           </div>
         ) : menuOpen ? (
-          /* Mobile open: Close icon */
+          /* Mobile open: Close — 36×30px to match hamburger height */
           <button
             type="button"
             onClick={() => setMenuOpen(false)}
             aria-label="Close menu"
             aria-expanded={true}
             aria-controls="nav-mobile-menu"
-            className="rounded-sm p-2xs"
+            className="flex h-[30px] w-[36px] items-center justify-center rounded-sm"
           >
             <Close size={24} />
           </button>
         ) : (
-          /* Mobile closed: hamburger */
+          /* Mobile closed: hamburger — p-2xs (8px) + 3×2px lines + 2×4px gaps = 30px */
           <button
             type="button"
             onClick={() => setMenuOpen(true)}
@@ -76,19 +82,23 @@ export function Nav({ siteName, links, device = 'Desktop' }: NavProps) {
         )}
       </div>
 
-      {/* Mobile menu panel */}
+      {/* Mobile menu panel — block links, py-s each, zero gap (Figma node 391:43) */}
       {isMobile && menuOpen && (
         <div
           id="nav-mobile-menu"
-          className="flex flex-col gap-s border-t border-grey-20 px-s py-xs"
+          className="border-t border-grey-20 px-s py-2xs"
         >
           {links.map((link) => (
-            <NavLink
+            <a
               key={link.href}
-              label={link.label}
               href={link.href}
-              active={link.active}
-            />
+              aria-current={link.active ? 'page' : undefined}
+              className={`block py-s font-body text-button-s transition-colors focus-visible:outline-2 focus-visible:outline-primary-700 ${
+                link.active ? 'bg-primary-800 text-white' : 'text-grey-80 hover:bg-primary-100'
+              }`}
+            >
+              {link.label}
+            </a>
           ))}
         </div>
       )}

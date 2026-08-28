@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { userEvent } from '@storybook/test'
 import { Nav } from './Nav'
 
 const meta = {
@@ -60,7 +61,6 @@ export const MobileClosed: Story = {
 export const MobileOpen: Story = {
   args: { device: 'Mobile' },
   play: async ({ canvas }) => {
-    const { userEvent } = await import('@storybook/test');
     const btn = canvas.getByRole('button', { name: 'Open menu' });
     await userEvent.click(btn);
   },
