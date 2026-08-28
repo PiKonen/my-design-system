@@ -7,17 +7,24 @@ const instance = figma.selectedInstance
 
 const label = instance.getString('Label')
 
-// `Property 1` is not mapped: Default, hover and focus are all CSS pseudo-states
-// in code, so NavLink has no prop for any of them and inventing one would emit
-// code that does not compile. All three variants therefore emit the same
-// snippet. This is the same mapping the Image Card set documents for its State
-// axis.
-//
+// `Property 1` is mapped for one of its four values. Default, hover and focus
+// are all CSS pseudo-states in code, so NavLink has no prop for any of them and
+// inventing one would emit code that does not compile — those three keep
+// emitting the same snippet, the same mapping the Image Card set documents for
+// its State axis. Active is different: it says which page the visitor is on,
+// which is a prop, so it emits one.
+const property1 = instance.getEnum('Property 1', {
+  Default: 'default',
+  hover: 'default',
+  focus: 'default',
+  Active: 'active',
+})
+
 // `href` has no Figma counterpart — a link target is authored per use, not per
 // design — so it is emitted as a placeholder for the developer to fill.
 export default {
   example: figma.code`
-    <NavLink label="${label}" href="#" />
+    <NavLink label="${label}" href="#" ${property1 === 'active' ? 'active' : ''} />
   `,
   imports: ['import { NavLink } from "pinx-ui"'],
   id: 'nav-link',
