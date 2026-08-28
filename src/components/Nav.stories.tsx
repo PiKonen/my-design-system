@@ -6,33 +6,32 @@ const meta = {
   component: Nav,
   args: {
     siteName: 'My Portfolio',
+    device: 'Desktop',
     links: [
       { label: 'Work', href: '/work' },
       { label: 'About', href: '/about' },
       { label: 'Contact', href: '/contact' },
+      { label: 'Log In', href: '/login' },
     ],
   },
   argTypes: {
     siteName: { control: 'text' },
+    device: { control: 'radio', options: ['Desktop', 'Mobile'] },
   },
   parameters: {
-    // Nav is a full-width sticky bar, so the padded default would misrepresent it.
     layout: 'fullscreen',
     docs: {
       description: {
         component: [
-          'Figma: Design system PI › Navigation (node 345:18).',
+          'Figma: Design system PI › Navigation (node 389:46).',
           '',
-          'A sticky full-width bar — white background, `color/ui/grey-20` bottom rule, and',
-          'an inner `max-w-5xl` container so content lines up with the page below it.',
+          'A sticky full-width bar — white background, `color/ui/grey-20` bottom rule.',
+          '`device="Desktop"` shows NavLink items with `px-2xl` (64px) horizontal inset.',
+          '`device="Mobile"` shows a hamburger button with `px-s` (16px) inset.',
           '',
-          'The links are `NavLink` instances, matching the Figma node. Hover and focus',
-          'therefore belong to NavLink and cannot be set from the controls panel — point',
-          'at a link for the tinted pill, or Tab to it for the ring.',
-          '',
-          'Links are keyed by `href`, so entries must have distinct hrefs. Several links',
-          "sharing one href — `'#'` placeholders, say — trigger a React duplicate-key",
-          'warning and React may drop or duplicate items. Always pass real paths.',
+          'Pass `onMenuClick` to handle the hamburger button press in Mobile mode.',
+          'The links are `NavLink` instances; hover and focus belong to NavLink.',
+          'Pass `active: true` on a link item to mark the current page.',
         ].join('\n'),
       },
     },
@@ -42,22 +41,29 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {}
+export const Desktop: Story = {}
 
-export const SingleLink: Story = {
-  args: { links: [{ label: 'Work', href: '/work' }] },
-}
-
-export const ManyLinks: Story = {
+export const DesktopWithActive: Story = {
   args: {
     links: [
-      { label: 'Work', href: '/work' },
-      { label: 'Components', href: '/components' },
-      { label: 'Foundations', href: '/foundations' },
-      { label: 'Docs', href: '/docs' },
+      { label: 'Work', href: '/work', active: true },
       { label: 'About', href: '/about' },
+      { label: 'Contact', href: '/contact' },
+      { label: 'Log In', href: '/login' },
     ],
   },
+}
+
+export const Mobile: Story = {
+  args: { device: 'Mobile' },
+}
+
+export const MobileMenuClick: Story = {
+  args: {
+    device: 'Mobile',
+    onMenuClick: () => alert('menu clicked'),
+  },
+  name: 'Mobile — onMenuClick wired',
 }
 
 /** Sticky behaviour only shows with content to scroll past. */
@@ -65,7 +71,7 @@ export const StickyOverContent: Story = {
   render: (args) => (
     <div className="h-96 overflow-y-auto bg-surface">
       <Nav {...args} />
-      <div className="max-w-5xl mx-auto p-6 flex flex-col gap-s">
+      <div className="mx-auto max-w-5xl flex flex-col gap-s p-6">
         {Array.from({ length: 12 }, (_, i) => (
           <p key={i} className="font-body text-base text-body">
             Scroll — the bar stays pinned to the top of this container. Paragraph {i + 1}.

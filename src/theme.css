@@ -169,6 +169,7 @@
   --spacing-m:            24px;  /* Card inset                              */
   --spacing-l:            32px;  /* Nav inset                               */
   --spacing-xl:           48px;
+  --spacing-2xl:          64px;  /* Nav desktop horizontal inset (Figma Spacing/2XL) */
 
   /* ── Radius ──────────────────────────────────────────────────────────────
      Mirrors Figma's `radius` variable collection verbatim (radius/sm · md ·
