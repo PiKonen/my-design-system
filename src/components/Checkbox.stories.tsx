@@ -105,7 +105,7 @@ function Standalone({
 export const AllStates: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
-    <div className="flex flex-col gap-small">
+    <div className="flex flex-col gap-2xs">
       <Standalone label="Unchecked" initial={false} />
       <Standalone label="Checked" initial />
       <Standalone label="Indeterminate" initial={false} indeterminate />

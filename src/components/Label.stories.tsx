@@ -39,7 +39,7 @@ export const Disabled: Story = {
 export const BothStates: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
-    <div className="flex flex-col gap-small">
+    <div className="flex flex-col gap-2xs">
       <Label label="Default" />
       <Label label="Disabled" disabled />
     </div>

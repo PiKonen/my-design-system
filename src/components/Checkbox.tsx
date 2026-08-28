@@ -12,9 +12,13 @@ interface CheckboxProps {
 }
 
 // Figma: Design system PI › Checkbox (node 30:23)
-// A 24px box at radius/sm (4px), sitting in a 28px slot. Focus is a 1px outline
-// at 1px offset, which lands exactly on the design's 28px outer edge and — being
-// an outline — cannot shift layout.
+// A 24px box at radius/sm (4px), sitting in a 28px slot. Figma now expresses
+// that slot as a Spacing/4XS (2px) inset on all four sides — 24 + 2 + 2 = 28,
+// so the geometry is unchanged and only its description became a token.
+// Focus is a 1px outline at 1px offset, which lands exactly on the design's
+// 28px outer edge and — being an outline — cannot shift layout.
+// The box-to-label gap is Spacing/XS (12px), up from 8px: the old scale's 8 was
+// called `small`, and the step that replaced it by name (`xs`) is 12.
 // Token mapping: color/text/default -> body, Color/Grey/80 -> grey-80,
 // color/border/dark -> border-dark, color/ui/error -> error,
 // Color/Red/140 -> error-dark. Checkmark and dash are Figma SVG exports.
@@ -65,7 +69,7 @@ export function Checkbox({
 
   return (
     <label
-      className={`inline-flex items-center gap-small font-body text-base ${
+      className={`inline-flex items-center gap-xs font-body text-base ${
         disabled ? 'cursor-not-allowed text-body-disabled' : 'cursor-pointer text-body'
       }`}
     >

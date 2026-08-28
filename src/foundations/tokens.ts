@@ -14,21 +14,21 @@ import {
 // template interpolation: Tailwind scans source text, so `bg-${prefix}-${step}`
 // would generate no CSS and the swatch would silently render transparent.
 
-// The scale has two authorities, and they disagree. Which one wins is per-token:
+// Figma is now the single authority for every step. It used to be split, and
+// the two authorities disagreed: Figma won for display/l (node 1:241) and
+// display/md, the live site (dig-video-94863958.figma.site) for everything
+// else. That is why display/s was font-body — the site's .h3 was Work Sans
+// Medium 22, so the serif stopped at display/md and the token kept its
+// `display` name only for its role in the hierarchy.
 //
-//   - display/l follows FIGMA (node 1:241, style text/display/l): Roboto Serif
-//     Bold 60 / 1.12 leading / -2% tracking = -1.2px. This is the only token
-//     carrying tracking, and the only one with a numeric leading on a display
-//     step. The site's h1 is Light 40 with no tracking — deliberately not used.
-//   - every other step follows the live site (dig-video-94863958.figma.site):
-//     display/s is font-body, not font-display, because the site's .h3 is Work
-//     Sans Medium 22 — the serif stops at display/md. The token keeps its
-//     `display` name because that is still its role in the hierarchy. Body copy
-//     and buttons declare no tracking.
-//   - display/md now carries Figma's -2% too: the mobile landing page h1
-//     (my-website node 22:138) binds text/display/md, and that style tracks
-//     -0.64px = -2% at 32. Nothing in code used display/md before, so the only
-//     thing that changes is this table.
+// Figma's rework settles it. display/s is Roboto Serif Medium 22 now, which
+// makes the family pairing uniform: display/* is font-display, body/* and
+// button/* are font-body, with no exception to remember.
+//
+// Tracking is likewise no longer a display/l-only trait. Every display/* and
+// button/* step carries Figma's -2%; the body/* steps carry none. That is new
+// for display/s, display/xs, button/lg and button/s — all four of which this
+// file used to document as declaring no tracking at all.
 //
 // Where a step is not given an explicit ratio, Figma AUTO line height maps to
 // leading-[normal].
@@ -36,15 +36,17 @@ import {
 // The size, leading, tracking and weight of each step are TOKENS (--text-* in
 // theme.css) and are not restated here — a step is `text-<name>` plus its family
 // utility, because a font family is not part of a --text-* token. The families
-// do not follow the names uniformly: display/s is font-body. body/md-link is
-// body/md plus a text decoration, which no font-size token can carry, so it is
-// the one step with an extra utility.
+// now follow the names exactly, so the family utility is mechanical.
+// body/md-link is body/md plus a text decoration, which no font-size token can
+// carry, so it remains the one step with an extra utility — Figma has promoted
+// it to a real named style, but a style there still cannot hand over an
+// underline here.
 const SAMPLE = 'Build your own team library';
 
 export const TYPE_STYLES: TypeToken[] = [
   { name: 'text/display/l', sample: SAMPLE, className: 'font-display text-display-l' },
   { name: 'text/display/md', sample: SAMPLE, className: 'font-display text-display-md' },
-  { name: 'text/display/s', sample: SAMPLE, className: 'font-body text-display-s' },
+  { name: 'text/display/s', sample: SAMPLE, className: 'font-display text-display-s' },
   { name: 'text/display/xs', sample: SAMPLE, className: 'font-display text-display-xs' },
   { name: 'text/body/lg', sample: SAMPLE, className: 'font-body text-body-lg' },
   { name: 'text/body/md', sample: SAMPLE, className: 'font-body text-body-md' },
@@ -161,19 +163,30 @@ export interface ScaleToken {
 }
 
 // Mirrors Figma's `radius` variable collection, which every radius in the Figma
-// components is bound to.
+// components is bound to. The four steps are unchanged, but Input moved down one
+// — Figma binds it to radius/sm now, so it no longer sits on radius/md.
 export const RADIUS_SCALE: ScaleToken[] = [
-  { name: 'radius-sm', utility: 'rounded-sm', value: '4px', sampleClass: 'rounded-sm', note: 'Checkbox box' },
-  { name: 'radius-md', utility: 'rounded-md', value: '8px', sampleClass: 'rounded-md', note: 'Input / Text area' },
-  { name: 'radius-lg', utility: 'rounded-lg', value: '12px', sampleClass: 'rounded-lg', note: 'Card' },
-  { name: 'radius-full', utility: 'rounded-full', value: '40px', sampleClass: 'rounded-full', note: 'Button pill; clamps to a circle on small boxes' },
+  { name: 'radius-sm', utility: 'rounded-sm', value: '4px', sampleClass: 'rounded-sm', note: 'Checkbox box, Input' },
+  { name: 'radius-md', utility: 'rounded-md', value: '8px', sampleClass: 'rounded-md', note: 'Image Card, Navi link' },
+  { name: 'radius-lg', utility: 'rounded-lg', value: '12px', sampleClass: 'rounded-lg', note: 'Card; the Radio circle in Figma' },
+  { name: 'radius-full', utility: 'rounded-full', value: '40px', sampleClass: 'rounded-full', note: 'Button pill, Tag; clamps to a circle on small boxes' },
 ];
 
-// Figma Spacing/XS · S · M · L. There is deliberately no 24px token, which is why
-// the large Button keeps Tailwind's numeric px-6 for its inline padding.
+// Mirrors Figma's `Spacing` collection one-for-one: Spacing/4XS · 3XS · 2XS ·
+// XS · S · M · L · XL. The 2px, 4px, 12px and 24px steps are new, and the names
+// replaced the old small/medium/large/extra-large set.
+// Read the renumbering carefully: `xs` is 12px, NOT the 8px that `small` held —
+// 8px is `2xs`. Anything mapped across by name rather than by value shifts.
+// Every component value now lands on a step. Two used to sit off the scale on
+// Tailwind numerics for want of a token: the large Button's 24px inline padding
+// and the Tag's 4px block padding.
 export const SPACING_SCALE: ScaleToken[] = [
-  { name: 'spacing-small', utility: 'p-small / gap-small', value: '8px', sampleClass: 'w-small' },
-  { name: 'spacing-medium', utility: 'p-medium / gap-medium', value: '16px', sampleClass: 'w-medium' },
-  { name: 'spacing-large', utility: 'p-large / gap-large', value: '32px', sampleClass: 'w-large' },
-  { name: 'spacing-extra-large', utility: 'p-extra-large', value: '48px', sampleClass: 'w-extra-large' },
+  { name: 'spacing-4xs', utility: 'p-4xs / gap-4xs', value: '2px', sampleClass: 'w-4xs', note: 'new — Checkbox + Radio inset' },
+  { name: 'spacing-3xs', utility: 'p-3xs / gap-3xs', value: '4px', sampleClass: 'w-3xs', note: 'new — Tag block padding' },
+  { name: 'spacing-2xs', utility: 'p-2xs / gap-2xs', value: '8px', sampleClass: 'w-2xs', note: 'was spacing-small' },
+  { name: 'spacing-xs', utility: 'p-xs / gap-xs', value: '12px', sampleClass: 'w-xs', note: 'new — Input inset, Button large block' },
+  { name: 'spacing-s', utility: 'p-s / gap-s', value: '16px', sampleClass: 'w-s', note: 'was spacing-medium' },
+  { name: 'spacing-m', utility: 'p-m / gap-m', value: '24px', sampleClass: 'w-m', note: 'new — Card inset' },
+  { name: 'spacing-l', utility: 'p-l / gap-l', value: '32px', sampleClass: 'w-l', note: 'was spacing-large' },
+  { name: 'spacing-xl', utility: 'p-xl / gap-xl', value: '48px', sampleClass: 'w-xl', note: 'was spacing-extra-large' },
 ];

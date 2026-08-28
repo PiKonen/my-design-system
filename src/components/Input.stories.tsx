@@ -49,9 +49,9 @@ const meta = {
     docs: {
       description: {
         component: [
-          'Figma: Design system PI › TextArea (node 18:5).',
+          'Figma: Design system PI › Input (node 18:5).',
           '',
-          '`spacing-medium` inset, `radius-md` corners, `text/body/md` for the value.',
+          '`spacing-xs` (12px) inset, `radius-sm` (4px) corners, `text/body/md` for the value.',
           'Focus and disabled both thicken the border to 2px rather than changing the box,',
           'so neither shifts layout.',
         ].join('\n'),

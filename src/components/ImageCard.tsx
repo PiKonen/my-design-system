@@ -21,7 +21,7 @@ export function ImageCard({ src, alt, title, description, href }: ImageCardProps
           image stays bare in every state — the gallery case, and Figma's
           State=Default. Hence optional props rather than placeholder copy. */}
       {(title || description) && (
-        <div className="pointer-events-none absolute right-medium bottom-medium flex max-w-[70%] flex-col gap-small rounded-md bg-black/60 p-medium text-right opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
+        <div className="pointer-events-none absolute right-s bottom-s flex max-w-[70%] flex-col gap-2xs rounded-md bg-black/60 p-s text-right opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
           {/* Same pair as Card — text/display/xs over text/body/s — but reversed
               onto text-white, since it sits over an arbitrary photo rather than
               a white surface. */}
@@ -32,7 +32,9 @@ export function ImageCard({ src, alt, title, description, href }: ImageCardProps
     </>
   );
 
-  // Figma: my-website › Image (node 17:20) — 540 × 417.851 at radius/md (8px).
+  // Figma: Design system PI › Image Card (node 328:22) — 540 × 418 at radius/md
+  // (8px). The component lives in the design system file now, rather than being
+  // read out of my-website node 17:20 as this comment used to say.
   // Note this is radius-md, not the Card's radius-lg: the design draws the bare
   // image at 8px. The frame's proportion is kept as an aspect ratio so the
   // component stays width-fluid instead of pinned to 540px.

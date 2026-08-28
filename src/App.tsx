@@ -42,7 +42,7 @@ function App() {
       />
 
       <main className="max-w-5xl mx-auto p-8 flex flex-col gap-6">
-        <section className="flex flex-col gap-medium">
+        <section className="flex flex-col gap-s">
           <h2 className="font-display text-xl text-body">Colors</h2>
           <p className="font-body text-sm text-body">
             Hex values are read from each swatch's computed style, so this table always
@@ -51,7 +51,7 @@ function App() {
           <ColorTable groups={COLOR_GROUPS} />
         </section>
 
-        <section className="flex flex-col gap-medium">
+        <section className="flex flex-col gap-s">
           <h2 className="font-display text-xl text-body">Typography</h2>
           <p className="font-body text-sm text-body">
             Each row reproduces one Figma text style. Samples render in text-body so the
@@ -60,7 +60,7 @@ function App() {
           <TypeTable tokens={TYPE_STYLES} />
         </section>
 
-        <section className="flex flex-col gap-medium">
+        <section className="flex flex-col gap-s">
           <h2 className="font-display text-xl text-body">Icons</h2>
           <p className="font-body text-sm text-body">
             20 icons from Figma, 24px on a 1.5 stroke. Colour is currentColor, defaulting
@@ -93,9 +93,9 @@ function App() {
         <section className="flex flex-col gap-4">
           <h2 className="font-display text-xl text-body">Button sizes</h2>
           <p className="font-body text-sm text-body">
-            Figma Size=Large / Size=Small. Small steps the padding down to 16/8 and the label to
-            text/button/s (14px); the colour ramp and all five states are shared, so the two sizes
-            cannot drift apart.
+            Figma Size=Large / Size=Small. Large is 16/12, and small keeps the same 16px inline
+            while stepping the block padding down to 8 and the label to text/button/s (14px); the
+            colour ramp and all five states are shared, so the two sizes cannot drift apart.
           </p>
 
           <div className="flex gap-4 items-center">
@@ -117,13 +117,13 @@ function App() {
           </div>
         </section>
 
-        <section className="flex flex-col gap-small">
+        <section className="flex flex-col gap-2xs">
           <h2 className="font-display text-xl text-body">Checkbox states</h2>
           <p className="font-body text-sm text-body">
             Hover and keyboard-focus the enabled boxes to check the remaining states.
           </p>
 
-          <div className="flex flex-col gap-small">
+          <div className="flex flex-col gap-2xs">
             <Checkbox checked={checked} onChange={setChecked} label="Default / Selected (toggle me)" />
             <Checkbox checked={false} indeterminate onChange={() => {}} label="Indeterminate" />
             <Checkbox checked={checkedError} error onChange={setCheckedError} label="Error (toggle me)" />
@@ -133,13 +133,13 @@ function App() {
           </div>
         </section>
 
-        <section className="flex flex-col gap-small">
+        <section className="flex flex-col gap-2xs">
           <h2 className="font-display text-xl text-body">Radio states</h2>
           <p className="font-body text-sm text-body">
             Arrow keys move within a group. Hover and keyboard-focus to check the remaining states.
           </p>
 
-          <div className="flex flex-col gap-small">
+          <div className="flex flex-col gap-2xs">
             <Radio name="demo" value="a" checked={choice === 'a'} onChange={setChoice} label="Default / Selected (pick me)" />
             <Radio name="demo" value="b" checked={choice === 'b'} onChange={setChoice} label="Second in the same group" />
             <Radio name="demo-error" value="x" checked={errorChoice === 'x'} onChange={setErrorChoice} error label="Error (selected)" />
@@ -158,14 +158,14 @@ function App() {
           />
         </div>
 
-        <section className="flex flex-col gap-medium">
+        <section className="flex flex-col gap-s">
           <h2 className="font-display text-xl text-body">Card</h2>
           <p className="font-body text-sm text-body">
             Heading uses text/display/xs, body uses text/body/s. Hover the last one for the
             link shadow — the one state Figma doesn't model, since shadow-md has no token.
           </p>
 
-          <div className="grid grid-cols-1 gap-medium sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-s sm:grid-cols-2 lg:grid-cols-3">
             <Card
               heading="Text only"
               body="The default form. This is what App.tsx rendered before, and what the Figma component shows with Show image off."

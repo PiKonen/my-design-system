@@ -6,32 +6,55 @@ import { SPACING_SCALE } from './tokens'
 
 # Spacing
 
-Four named steps, mapping to Figma's `Spacing/XS · S · M · L`. Because they live in
-the `--spacing-*` namespace, each one generates the full family of utilities —
-`p-`, `px-`, `py-`, `m-`, `gap-`, `w-`, `h-` and so on.
+Eight named steps, mapping one-for-one to Figma's `Spacing/4XS · 3XS · 2XS · XS · S ·
+M · L · XL`. Because they live in the `--spacing-*` namespace, each one generates the
+full family of utilities — `p-`, `px-`, `py-`, `m-`, `gap-`, `w-`, `h-` and so on.
 
 <ScaleTable tokens={SPACING_SCALE} kind="spacing" />
+
+## Renamed from small / medium / large
+
+These names replaced an earlier four-step set (`small` · `medium` · `large` ·
+`extra-large`) when Figma reworked its collection. **The mapping is by value, not by
+name**, and one step is a trap:
+
+| old | px | new |
+| --- | --- | --- |
+| `small` | 8 | `2xs` |
+| `medium` | 16 | `s` |
+| `large` | 32 | `l` |
+| `extra-large` | 48 | `xl` |
+
+`xs` is **12px**, not the 8px that `small` held. A find-and-replace of `small` → `xs`
+compiles cleanly and silently grows every 8px inset by half. The 2px, 4px, 12px and
+24px steps are all new.
 
 ## Named steps vs Tailwind's numeric scale
 
 Tailwind's numeric utilities (`p-4`, `gap-6`) still work, computed from its base
 `--spacing` unit. Both exist, which means the same 16px can be written two ways:
-`p-medium` or `p-4`.
+`p-s` or `p-4`.
 
 Prefer the **named** token. It carries the intent and tracks Figma; the numeric one
 is a coincidence that happens to land on the same pixel value.
 
-## The 24px gap
+## Every value is on the scale
 
-There is no token for 24px, which is Figma's `Spacing/M` for the large Button's
-inline padding. That component keeps `px-6`, and it is the only intentionally
-untokenised spacing value in the library. Small buttons step down to
-`px-medium py-small`, both fully tokenised.
+The old four-step scale ran 8/16/32/48 with nothing in between, so two components had
+to reach for Tailwind numerics for want of a token — the large `Button`'s 24px inline
+padding (`px-6`) and `Tag`'s 4px block padding (`py-1`). Both were documented as
+deliberate exceptions.
+
+The reworked collection covers both. `Tag` is `px-xs py-3xs`, `Card` is `p-m`, and the
+large `Button` moved to `px-s py-xs` — so it no longer needs 24px at all, even though
+24px is now available as `m`. There are no untokenised spacing values left in the
+library.
 
 ## A fixed misuse worth remembering
 
 `Input` used to set its corner radius with `rounded-[var(--spacing-small)]` — a
 spacing token doing a radius job. It resolved to the correct 8px, but it would not
-have followed a change to Figma's `radius/md`. It is now `rounded-md`. Reach for
+have followed a change to Figma's radius scale, which is exactly what happened next:
+Figma moved `Input` down to `radius/sm`, and it is `rounded-sm` (4px) today. Reach for
 [Radius](?path=/docs/foundations-radius--docs) tokens for corners, and keep the
 spacing scale for space.

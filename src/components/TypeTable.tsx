@@ -20,10 +20,10 @@ export function TypeTable({ tokens }: TypeTableProps) {
       <tbody>
         {tokens.map((token) => (
           <tr key={token.name} className="border-b border-border">
-            <td className="py-medium pr-medium align-baseline">
+            <td className="py-s pr-s align-baseline">
               <span className={`${token.className} text-body`}>{token.sample}</span>
             </td>
-            <td className="py-medium whitespace-nowrap text-right align-baseline font-body text-sm text-body-disabled">
+            <td className="py-s whitespace-nowrap text-right align-baseline font-body text-sm text-body-disabled">
               {token.name}
             </td>
           </tr>

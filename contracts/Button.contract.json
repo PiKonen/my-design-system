@@ -1,6 +1,6 @@
 {
   "component": "Button",
-  "version": "0.4.3",
+  "version": "0.5.0",
   "figma": {
     "file": "Design-system-PI",
     "node": "1:231"
@@ -27,9 +27,11 @@
     "layout": "inline-flex, items-center, justify-center, whitespace-nowrap",
     "borderWidth": "2px solid, always present (including default/primary, where it's transparent) so focus never shifts layout",
     "sizes": {
-      "large": { "paddingInline": "24px (off-scale, not a token)", "paddingBlock": "token(spacing.small)", "text": "token(type.button.lg)" },
-      "small": { "paddingInline": "token(spacing.small)", "paddingBlock": "token(spacing.xs)", "text": "token(type.button.s)" }
-    }
+      "_note": "Changed in 0.5.0 to follow Figma's reworked Spacing collection. Large was 24px inline / 16px block; it is now 16 / 12. Small is unchanged in pixels (16 / 8) but its tokens were renamed. Every value is now on the scale — the 24px inline padding that 0.4.3 documented as 'off-scale, not a token' is gone from Button entirely, and 24px is itself a token now (spacing.m) that Button no longer uses.",
+      "large": { "paddingInline": "token(spacing.s)", "paddingBlock": "token(spacing.xs)", "text": "token(type.button.lg)" },
+      "small": { "paddingInline": "token(spacing.s)", "paddingBlock": "token(spacing.2xs)", "text": "token(type.button.s)" }
+    },
+    "tracking": "-0.02em on both sizes, carried by the type tokens rather than the component. New in 0.5.0: 0.4.3 documented both button steps as sitting at normal tracking."
   },
 
   "tokens": {
@@ -48,7 +50,10 @@
       "color.primary.800": { "cssVar": "--color-primary-800", "usedFor": "primary / pressed fill", "core": "#433B7D" }
     },
     "locked": {
-      "_note": "Shared neutrals. Not brand-specific by design — disabled should look the same regardless of brand.",
+      "_note": "Shared neutrals and the spacing steps the size matrix is built from. Not brand-specific by design — disabled should look the same regardless of brand, and a brand may not reshape the button's footprint.",
+      "spacing.s": { "cssVar": "--spacing-s", "usedFor": "inline padding, both sizes", "core": "16px" },
+      "spacing.xs": { "cssVar": "--spacing-xs", "usedFor": "large / block padding", "core": "12px" },
+      "spacing.2xs": { "cssVar": "--spacing-2xs", "usedFor": "small / block padding", "core": "8px" },
       "color.grey.20": { "cssVar": "--color-grey-20", "usedFor": "secondary / disabled fill" },
       "color.grey.40": { "cssVar": "--color-grey-40", "usedFor": "secondary / disabled border" },
       "color.grey.100": { "cssVar": "--color-grey-100", "usedFor": "primary / disabled fill, secondary / disabled text" },

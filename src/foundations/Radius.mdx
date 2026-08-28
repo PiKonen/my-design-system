@@ -33,9 +33,18 @@ pill on a tall button and as a perfect circle on a small box. That is why:
   chosen over `rounded-lg` because it keeps rendering a circle if that 24px size
   ever changes, where `rounded-lg` would quietly become a squircle.
 
-## No 24px step
+## `Input` moved down a step
 
-The large Button's inline padding is 24px, which has no token in either scale
-(spacing runs 8/16/32/48). It stays on Tailwind's numeric `px-6`. Everything else
-in the components is tokenised — this is the one deliberate exception, and a 24px
-token would close it.
+The four steps are unchanged, but `Input` is no longer one of them: Figma binds it to
+`radius/sm`, so its corners are 4px rather than the 8px it used to carry. That leaves
+`radius/md` to **Image Card** and **Navi link**.
+
+## The 24px exception is closed
+
+This page used to carry a "No 24px step" note: the large Button's inline padding was
+24px, which had no token in either scale, so it stayed on Tailwind's numeric `px-6`
+as the library's one deliberate exception.
+
+Figma's reworked `Spacing` collection added both a 12px step and a 24px one, and the
+Button moved onto `px-s py-xs` — 16px inline, 12px block. Nothing in the components is
+untokenised now. See [Spacing](?path=/docs/foundations-spacing--docs).

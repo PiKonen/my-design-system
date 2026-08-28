@@ -53,31 +53,31 @@ export function ColorTable({ groups }: ColorTableProps) {
   }, [groups]);
 
   return (
-    <div ref={rootRef} className="flex flex-col gap-large">
+    <div ref={rootRef} className="flex flex-col gap-l">
       {groups.map((group) => (
         <table
           key={group.title}
           className="w-full max-w-md border-collapse font-body text-sm text-body"
         >
-          <caption className="pb-small text-left font-display text-base text-body">
+          <caption className="pb-2xs text-left font-display text-base text-body">
             {group.title}
           </caption>
           <tbody>
             {group.tokens.map((token) => (
               <tr key={token.name} className="border-b border-border">
-                <td className="w-large py-small">
+                <td className="w-l py-2xs">
                   <span
                     data-token={token.name}
-                    className={`${token.swatchClass} block size-large rounded-md border border-border-dark`}
+                    className={`${token.swatchClass} block size-l rounded-md border border-border-dark`}
                   />
                 </td>
-                <td className="py-small pl-medium">
+                <td className="py-2xs pl-s">
                   {token.name}
                   {token.note && (
-                    <span className="pl-small text-body-disabled">{token.note}</span>
+                    <span className="pl-2xs text-body-disabled">{token.note}</span>
                   )}
                 </td>
-                <td className="py-small pl-medium text-right tabular-nums text-body-disabled">
+                <td className="py-2xs pl-s text-right tabular-nums text-body-disabled">
                   {hexes[token.name] ?? '…'}
                 </td>
               </tr>

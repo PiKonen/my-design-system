@@ -8,8 +8,8 @@ import { TYPE_STYLES } from './tokens'
 
 Two families, both loaded from Google Fonts in `src/index.css`:
 
-- **`font-display`** — Roboto Serif. The two largest headings and card titles.
-- **`font-body`** — Work Sans. Body copy, labels, buttons, and `display/s`.
+- **`font-display`** — Roboto Serif. All four `display/*` steps.
+- **`font-body`** — Work Sans. Body copy, labels and buttons.
 
 Each row below mirrors one Figma text style. Samples all render in `text-body` so
 the comparison is purely typographic — colour is a separate token axis.
@@ -21,31 +21,37 @@ the comparison is purely typographic — colour is a separate token axis.
 **Figma AUTO line height maps to `leading-[normal]`,** which is the font's own
 natural metric rather than a ratio.
 
-## Which source each step follows
+## Figma is the authority
 
-The Figma file and the live site (`dig-video-94863958.figma.site`) disagree, so the
-authority is recorded per token.
+This used to be recorded per token, because the Figma file and the live site
+(`dig-video-94863958.figma.site`) disagreed: Figma won for `display/l` (node `1:241`
+— Roboto Serif Bold 60px, leading 1.12) and for `display/md`, the site for everything
+else. Figma's rework has settled it, and every step now follows the file.
 
-**`display/l` follows Figma** — node `1:241`, style `text/display/l`: Roboto Serif
-Bold 60px, leading 1.12, −2% tracking (`tracking-[-1.2px]`). It is the only step
-with tracking and the only display step with a numeric leading. The site's `h1` is
-Light 40px with no tracking; that version is deliberately not used.
+Two things changed as a result.
 
-**Every other step follows the site.** Two consequences:
+**`display/s` is Roboto Serif, not Work Sans.** The site's `.h3` was Work Sans Medium
+22, which is why the serif used to stop after `display/md` and this step resolved to
+`font-body` in spite of its name. Figma moved it onto the serif, so the family pairing
+is mechanical now — every `display/*` step is `font-display`, every `body/*` and
+`button/*` step is `font-body`, with no exception to remember.
 
-`display/s` is Work Sans, not Roboto Serif. The site's `.h3` is Work Sans Medium
-22, so the serif stops after `display/md`. The token keeps its `display` name
-because that is still its role in the hierarchy, but it resolves to `font-body`.
-
-No tracking anywhere below `display/l`. Figma specifies −2% on the remaining
-display and button styles; the site declares none on headings and buttons and
-`letter-spacing: 0` on body copy. `Button` and `Card` were carrying
-`tracking-[-0.32px]` / `-0.28px` inline and no longer do.
+**Tracking is no longer `display/l`-only.** Every `display/*` and `button/*` step
+carries Figma's −2%; the `body/*` steps carry none. That is new for `display/s`,
+`display/xs`, `button/lg` and `button/s`, which this page previously documented as
+having no tracking at all. The value rides on the `--text-*` token itself, so a step
+picks it up from `text-display-s` or `text-button-lg` and there is nothing to write
+inline — but note that substituting a raw `text-base` for the token silently drops it.
 
 ## A known difference from Figma
 
-Rendered line boxes are taller than Figma's. Figma uses AUTO line height (≈1.19×
-the font size) while Tailwind's `text-base` is 1.5 and `text-sm` ≈1.43. On the
-Button this shows up as 60px rendered vs 51px in Figma at the large size, and 40px
-vs 32px at small. The proportions between sizes hold; the absolute heights differ.
-Worth knowing before pixel-comparing a screenshot against the Figma frame.
+Rendered line boxes can be taller than Figma's. Figma uses AUTO line height (≈1.19×
+the font size) while Tailwind's numeric `text-base` is 1.5 and `text-sm` ≈1.43. The
+`--text-*` tokens set `normal` explicitly, so anything using its own type token
+matches Figma — the gap only opens where a raw numeric utility stands in for one.
+
+`Button` used to be the example: on `text-base` / `text-sm` it rendered 60px vs 51px
+in Figma at the large size, and 40px vs 32px at small. It sets `text-button-lg` /
+`text-button-s` now, so that discrepancy is closed. What remains on raw `text-base` is
+the label text on `Checkbox` and `Radio` — which Figma's components do not bind to a
+type style — and the documentation chrome on these pages.

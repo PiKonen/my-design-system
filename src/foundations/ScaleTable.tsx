@@ -19,7 +19,7 @@ export function ScaleTable({ tokens, kind }: ScaleTableProps) {
             {COLUMNS.map((col, i) => (
               <th
                 key={col || `col-${i}`}
-                className="py-small pr-medium text-left font-body text-xs text-body-disabled"
+                className="py-2xs pr-s text-left font-body text-xs text-body-disabled"
               >
                 {col}
               </th>
@@ -29,25 +29,25 @@ export function ScaleTable({ tokens, kind }: ScaleTableProps) {
         <tbody>
           {tokens.map((token) => (
             <tr key={token.name} className="border-b border-border">
-              <td className="py-small pr-medium">
+              <td className="py-2xs pr-s">
                 {kind === 'radius' ? (
                   <span
-                    className={`block size-large border-2 border-primary-500 bg-primary-100 ${token.sampleClass}`}
+                    className={`block size-l border-2 border-primary-500 bg-primary-100 ${token.sampleClass}`}
                   />
                 ) : (
-                  <span className={`block h-large bg-primary-500 ${token.sampleClass}`} />
+                  <span className={`block h-l bg-primary-500 ${token.sampleClass}`} />
                 )}
               </td>
-              <td className="py-small pr-medium whitespace-nowrap font-body text-sm text-body">
+              <td className="py-2xs pr-s whitespace-nowrap font-body text-sm text-body">
                 {token.name}
               </td>
-              <td className="py-small pr-medium whitespace-nowrap font-body text-sm text-body-disabled">
+              <td className="py-2xs pr-s whitespace-nowrap font-body text-sm text-body-disabled">
                 {token.utility}
               </td>
-              <td className="py-small pr-medium whitespace-nowrap font-body text-sm text-body">
+              <td className="py-2xs pr-s whitespace-nowrap font-body text-sm text-body">
                 {token.value}
               </td>
-              <td className="py-small font-body text-sm text-body-disabled">{token.note ?? ''}</td>
+              <td className="py-2xs font-body text-sm text-body-disabled">{token.note ?? ''}</td>
             </tr>
           ))}
         </tbody>

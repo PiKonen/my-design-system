@@ -61,7 +61,7 @@ export const Secondary: Story = {
 export const AllVariants: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
-    <div className="flex flex-wrap items-center gap-small">
+    <div className="flex flex-wrap items-center gap-2xs">
       <Tag label="Neutral" variant="neutral" />
       <Tag label="Primary" variant="primary" />
       <Tag label="Secondary" variant="secondary" />
@@ -73,7 +73,7 @@ export const AllVariants: Story = {
 export const VaryingLengths: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
-    <div className="flex flex-wrap items-center gap-small">
+    <div className="flex flex-wrap items-center gap-2xs">
       <Tag label="UX" variant="primary" />
       <Tag label="Design systems" variant="primary" />
       <Tag label="Accessibility and inclusive design" variant="primary" />

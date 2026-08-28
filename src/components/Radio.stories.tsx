@@ -82,7 +82,7 @@ function Group({
   const [choice, setChoice] = useState(initial)
 
   return (
-    <div className="flex flex-col gap-small">
+    <div className="flex flex-col gap-2xs">
       {options.map((option) => (
         <Radio
           key={option.value}
@@ -128,16 +128,16 @@ export const DisabledGroup: Story = {
 export const AllStates: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
-    <div className="flex flex-col gap-large">
-      <div className="flex flex-col gap-small">
+    <div className="flex flex-col gap-l">
+      <div className="flex flex-col gap-2xs">
         <span className="font-body text-sm text-body-disabled">Default</span>
         <Group name="all-default" options={OPTIONS.slice(0, 2)} initial="a" />
       </div>
-      <div className="flex flex-col gap-small">
+      <div className="flex flex-col gap-2xs">
         <span className="font-body text-sm text-body-disabled">Error</span>
         <Group name="all-error" options={OPTIONS.slice(0, 2)} initial="a" error />
       </div>
-      <div className="flex flex-col gap-small">
+      <div className="flex flex-col gap-2xs">
         <span className="font-body text-sm text-body-disabled">Disabled</span>
         <Group name="all-disabled" options={OPTIONS.slice(0, 2)} initial="a" disabled />
       </div>

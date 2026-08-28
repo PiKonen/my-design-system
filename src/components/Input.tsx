@@ -7,11 +7,14 @@ interface InputProps {
   disabled?: boolean;
 }
 
-// Figma: Design system PI › TextArea (node 18:5)
-// Figma Spacing/S (16px) -> spacing-medium inset; radius/md (8px) -> radius-md;
+// Figma: Design system PI › Input (node 18:5) — the frame is named Input, not
+// TextArea as this comment previously claimed.
+// Two values moved in Figma's rework: the inset dropped a step from Spacing/S
+// (16px) to Spacing/XS (12px), and the corners from radius/md (8px) to
+// radius/sm (4px) — the same radius the Checkbox box uses. Type is unchanged:
 // text/body/md (Work Sans Regular 16 / 1.25).
 const field = [
-  'w-full p-medium rounded-md border',
+  'w-full p-xs rounded-sm border',
   'font-body text-body-md',
   'bg-white text-body placeholder:text-body',
   'focus:outline-none focus:border-2',
@@ -22,7 +25,7 @@ const field = [
 
 export function Input({ label, value, onChange, placeholder, error, disabled = false }: InputProps) {
   return (
-    <div className="flex flex-col gap-small w-full">
+    <div className="flex flex-col gap-2xs w-full">
       {label && (
         <label className="font-body text-sm font-medium text-body">
           {label}

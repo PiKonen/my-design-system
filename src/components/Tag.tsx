@@ -12,13 +12,15 @@ interface TagProps {
 // the element carries no interaction affordance it cannot honour.
 // Shape and type are variant-independent: radius/full (40px, which clamps to a
 // pill at this height) and text/body/s (Work Sans Regular 14 / 1.25).
-// Padding is 4px block / 12px inline in Figma. Neither sits on the spacing scale
-// (8/16/32/48), so both stay on Tailwind's numeric steps — the same exception
-// Button already makes for its 24px inline padding.
+// Padding is 4px block / 12px inline, unchanged in pixels — but both are tokens
+// now (Spacing/3XS and Spacing/XS). The old scale ran 8/16/32/48 and had
+// neither, so both used to sit on Tailwind's numeric steps as a documented
+// exception, alongside the large Button's 24px inline padding. Figma's
+// reworked collection covers both values, so the exception is retired.
 const base =
   'font-body text-body-s whitespace-nowrap ' +
   'inline-flex items-center ' +
-  'px-3 py-1 rounded-full';
+  'px-xs py-3xs rounded-full';
 
 // Each variant is a tonal pair drawn from one ramp: the 100 step as the fill,
 // the 800 step as the label. Neutral has no brand ramp to sit on, so it borrows

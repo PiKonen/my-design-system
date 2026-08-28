@@ -18,6 +18,31 @@ Spacing:
 - Use spacing that is defined in index.css
 
 
+## Figma access — the identity check is mandatory
+
+This repo's Figma file is `Design-system-PI`, fileKey `BPK4nPzVTPPb8wOYUZnD71`, and it
+belongs to the **Nitor** account. There are two separate Figma identities on this
+machine and they must not mix:
+
+- ✅ `paula.ikonen@nitor.com` — handle "Paula Ikonen", plan `Nitor`, tier `org`
+- ❌ `ext-paula.1.ikonen@sok.fi` — handle "Ikonen Paula (EXT), Nitor Group Oy", plan
+  `SOK`, tier `enterprise`
+
+The SOK handle contains the word "Nitor", so the handle alone does NOT identify the
+account. Check `email` and `plans[].name`.
+
+Before the first Figma MCP call in any session that touches this repo:
+
+1. Call `whoami` and state the email in your reply.
+2. If it is not `paula.ikonen@nitor.com`, **stop**. Do not read, screenshot, export or
+   write any Figma node. Report the connected identity and ask for a re-auth.
+
+Never work around a Figma access error by trying a different account, file key or node.
+`"you don't have edit access to this file"` here means the wrong identity is connected —
+it does not mean the target was wrong. Note also that the Figma MCP requires **edit**
+access, not view, and that its token is machine-global: re-logging into figma.com in a
+browser does not change it, only `/mcp` → clear authentication does.
+
 ## Component rules
 - One component per file in src/components/
 - Use TypeScript interfaces for all props

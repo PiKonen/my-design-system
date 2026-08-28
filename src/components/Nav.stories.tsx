@@ -65,7 +65,7 @@ export const StickyOverContent: Story = {
   render: (args) => (
     <div className="h-96 overflow-y-auto bg-surface">
       <Nav {...args} />
-      <div className="max-w-5xl mx-auto p-6 flex flex-col gap-medium">
+      <div className="max-w-5xl mx-auto p-6 flex flex-col gap-s">
         {Array.from({ length: 12 }, (_, i) => (
           <p key={i} className="font-body text-base text-body">
             Scroll — the bar stays pinned to the top of this container. Paragraph {i + 1}.

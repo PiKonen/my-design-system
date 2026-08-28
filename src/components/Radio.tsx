@@ -11,8 +11,11 @@ interface RadioProps {
 }
 
 // Figma: Design system PI › Radiobutton (node 149:8)
-// A 24px circle in a 28px slot, same geometry as Checkbox but fully rounded.
-// Figma binds this to radius/lg (12px), which on a 24px box IS the circle.
+// A 24px circle in a 28px slot, same geometry as Checkbox but fully rounded —
+// and, as there, Figma now draws that slot as a Spacing/4XS (2px) inset rather
+// than a bare 28px frame, and the circle-to-label gap is Spacing/XS (12px), up
+// from 8px.
+// Figma binds the circle to radius/lg (12px), which on a 24px box IS the circle.
 // Here it stays rounded-full (radius/full, 40px): border-radius clamps to half
 // the shorter side, so it renders the same 12px circle, and it keeps rendering
 // a circle if the 24px size ever changes — rounded-lg would not.
@@ -60,7 +63,7 @@ export function Radio({
 }: RadioProps) {
   return (
     <label
-      className={`inline-flex items-center gap-small font-body text-base ${
+      className={`inline-flex items-center gap-xs font-body text-base ${
         disabled ? 'cursor-not-allowed text-body-disabled' : 'cursor-pointer text-body'
       }`}
     >

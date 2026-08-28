@@ -69,9 +69,9 @@ export const Disabled: Story = {
 export const Matrix: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
-    <div className="flex flex-col gap-medium">
+    <div className="flex flex-col gap-s">
       {(['large', 'small'] as const).map((size) => (
-        <div key={size} className="flex flex-wrap items-center gap-medium">
+        <div key={size} className="flex flex-wrap items-center gap-s">
           <span className="w-12 font-body text-sm text-body-disabled">{size}</span>
           <Button label="Button" variant="primary" size={size} onClick={onClick} />
           <Button label="Button" variant="secondary" size={size} onClick={onClick} />

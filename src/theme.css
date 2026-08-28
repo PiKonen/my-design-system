@@ -76,12 +76,16 @@
      foundations/tokens.ts, which now reads these tokens rather than restating
      them — the scale has one home.
      The font FAMILY is not part of a --text-* token, so each step still needs
-     its family utility alongside it. The pairing is not uniform: display/s is
-     font-body, because the serif stops at display/md. The family each step
-     expects is noted per line.
+     its family utility alongside it. The pairing is now uniform: every
+     display/* step is font-display and every body/* and button/* step is
+     font-body. display/s used to be the one exception — Work Sans under a
+     `display` name, because the serif stopped at display/md — until Figma
+     moved it onto Roboto Serif. The family each step expects is still noted
+     per line.
      Figma AUTO line height maps to `normal`. Tracking is written in em so it
      tracks the size: Figma's -2% on display/l is -1.2px at 60, and -0.64px at
-     32 on display/md — both -0.02em. */
+     32 on display/md — both -0.02em. Every display/* and button/* step now
+     carries that -2%; the body/* steps carry none. */
 
   /* text/display/l — Roboto Serif Bold 60 / 1.12 / -2%. font-display.
      Follows Figma (node 1:241), not the live site's Light 40 h1. */
@@ -96,15 +100,19 @@
   --text-display-md--letter-spacing: -0.02em;
   --text-display-md--font-weight:    500;
 
-  /* text/display/s — Work Sans Medium 22 / AUTO. font-BODY, not display. */
+  /* text/display/s — Roboto Serif Medium 22 / AUTO / -2%. font-display.
+     Was Work Sans at no tracking. Figma moved this step onto the serif, which
+     retires the "serif stops at display/md" rule the old comment relied on. */
   --text-display-s:                 22px;
   --text-display-s--line-height:    normal;
+  --text-display-s--letter-spacing: -0.02em;
   --text-display-s--font-weight:    500;
 
-  /* text/display/xs — Roboto Serif SemiBold 16 / AUTO. font-display.
+  /* text/display/xs — Roboto Serif SemiBold 16 / AUTO / -2%. font-display.
      Card and ImageCard headings. */
   --text-display-xs:                 16px;
   --text-display-xs--line-height:    normal;
+  --text-display-xs--letter-spacing: -0.02em;
   --text-display-xs--font-weight:    600;
 
   /* text/body/lg — Work Sans Regular 20 / 125%. font-body. */
@@ -129,21 +137,38 @@
   --text-body-s--line-height:    1.25;
   --text-body-s--font-weight:    400;
 
-  /* text/button/lg — Work Sans SemiBold 16 / AUTO. font-body. */
+  /* text/button/lg — Work Sans SemiBold 16 / AUTO / -2%. font-body.
+     The -2% is new: both button steps used to declare no tracking. */
   --text-button-lg:                 16px;
   --text-button-lg--line-height:    normal;
+  --text-button-lg--letter-spacing: -0.02em;
   --text-button-lg--font-weight:    600;
 
-  /* text/button/s — Work Sans SemiBold 14 / AUTO. font-body. */
+  /* text/button/s — Work Sans SemiBold 14 / AUTO / -2%. font-body. */
   --text-button-s:                 14px;
   --text-button-s--line-height:    normal;
+  --text-button-s--letter-spacing: -0.02em;
   --text-button-s--font-weight:    600;
 
-  /* ── Spacing ────────────────────────────────────────────────────────── */
-  --spacing-small:        8px;
-  --spacing-medium:       16px;
-  --spacing-large:        32px;
-  --spacing-extra-large:  48px;
+  /* ── Spacing ─────────────────────────────────────────────────────────────
+     Mirrors Figma's `Spacing` variable collection verbatim (Spacing/4XS ·
+     3XS · 2XS · XS · S · M · L · XL), so a step reads the same in both tools.
+     These names replace the old small/medium/large/extra-large set. That set
+     had no 12px and no 24px step, which forced two components off the scale
+     and into raw Tailwind numbers — Button's 24px inline padding and Tag's
+     4px block padding were both documented here as off-scale exceptions.
+     Both are ordinary tokens now, so the exception is gone.
+     WATCH THE RENUMBERING: xs is 12px, NOT the 8px the old `small` held —
+     8px is 2xs. Mapping the old names onto the new ones by name rather than
+     by value silently shifts every 8px inset up to 12. */
+  --spacing-4xs:           2px;  /* Checkbox + Radio control inset          */
+  --spacing-3xs:           4px;  /* Tag block padding                       */
+  --spacing-2xs:           8px;  /* Button small block, Card + Nav-link pad */
+  --spacing-xs:           12px;  /* Button large block, Input inset + gap   */
+  --spacing-s:            16px;  /* Button inline, Image Card inset, Nav gap */
+  --spacing-m:            24px;  /* Card inset                              */
+  --spacing-l:            32px;  /* Nav inset                               */
+  --spacing-xl:           48px;
 
   /* ── Radius ──────────────────────────────────────────────────────────────
      Mirrors Figma's `radius` variable collection verbatim (radius/sm · md ·
@@ -152,12 +177,12 @@
      md and lg would otherwise resolve to 6px and 8px, so rounded-md /
      rounded-lg could silently render an off-token value. Overriding them
      means there is no radius utility left that is not a token.
-     Input previously reused --spacing-small for its radius — a spacing token
-     doing a radius job. Same 8px, but radius-md is the one that tracks Figma. */
-  --radius-sm:            4px;   /* Checkbox box                            */
-  --radius-md:            8px;   /* Input / Text area                       */
-  --radius-lg:            12px;  /* Card                                    */
-  --radius-full:          40px;  /* Button pill                             */
+     The scale itself is unchanged, but Input moved down a step: Figma now
+     binds it to radius/sm, so its corners are 4px rather than 8px. */
+  --radius-sm:            4px;   /* Checkbox box, Input                     */
+  --radius-md:            8px;   /* Image Card, Navi link                   */
+  --radius-lg:            12px;  /* Card; Radio circle in Figma             */
+  --radius-full:          40px;  /* Button pill, Tag                        */
 
   /* ── Elevation ───────────────────────────────────────────────────────────
      Two-layer drop shadow, 10% black. Value carried over from Tailwind's

@@ -15,23 +15,31 @@ interface ButtonProps {
 // Everything size-independent lives here: radius/full (40px, clamps to a pill at
 // both sizes) and the 2px border, which is always present so the Focus state
 // cannot shift layout — Primary carries it transparent until focused.
+// font-weight is not set here: it arrives with the text-button-* token below,
+// the same way every other component in this library takes weight from its type
+// step rather than restating it.
 const base =
-  'font-body font-semibold whitespace-nowrap ' +
+  'font-body whitespace-nowrap ' +
   'inline-flex items-center justify-center ' +
   'rounded-full border-2 border-solid ' +
   'transition-colors cursor-pointer ' +
   'focus-visible:outline-none disabled:cursor-not-allowed';
 
 // Size carries padding and type only — the colour ramp below is shared, so the
-// two sizes cannot drift apart.
-//   Large: Spacing/M 24 inline, Spacing/S 16 block, text/button/lg (16)
-//   Small: Spacing/S 16 inline, Spacing/XS 8 block, text/button/s  (14)
-// Both rows sit at normal tracking, per text/button/lg and text/button/s.
-// Large's 24px inline padding has no spacing token (the scale is 8/16/32/48) so
-// it stays on Tailwind's numeric step; every other value here is a token.
+// two sizes cannot drift apart. Every value here is a token:
+//   Large: Spacing/S 16 inline, Spacing/XS 12 block, text/button/lg (16)
+//   Small: Spacing/S 16 inline, Spacing/2XS 8 block, text/button/s  (14)
+// Large was 24 inline / 16 block, and the 24 sat off the spacing scale
+// entirely — the old scale ran 8/16/32/48 with nothing in between, so it had to
+// borrow Tailwind's numeric px-6. Figma's reworked Spacing collection adds both
+// a 12px step (xs) and a 24px one (m); large moved onto 16/12 and no longer
+// needs the off-scale escape hatch. Small is unchanged in pixels.
+// The type utilities are text-button-* rather than the raw text-base / text-sm
+// this used to set: both steps now carry -0.02em tracking, and only the token
+// brings it. Writing text-base here would silently drop it.
 const sizes: Record<ButtonSize, string> = {
-  large: 'px-6 py-4 text-base',
-  small: 'px-medium py-small text-sm',
+  large: 'px-s py-xs text-button-lg',
+  small: 'px-s py-2xs text-button-s',
 };
 
 // Hover, Focus, Disabled and Pressed all exist in the Figma set and are matched
