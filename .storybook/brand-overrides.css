@@ -1,0 +1,26 @@
+/* Storybook-only brand preview override. Not imported anywhere in src/index.ts,
+   so it never ships in the published pinx-ui package — brand colour overrides
+   are a site-level concern (see my-website-clone/src/styles.css), this file
+   exists purely so both brands can be previewed side by side in one running
+   Storybook instead of needing two separate deployments.
+
+   Scoped to [data-brand="filial"] rather than :root, since a toolbar toggle
+   needs to switch live without a page reload — a wrapping element's custom
+   properties still cascade normally to every descendant, so this does not
+   need to sit on <html> to work.
+
+   Values match my-website-clone/src/styles.css exactly. If that file's
+   override ever changes, update it here too — nothing keeps the two in sync
+   automatically. */
+[data-brand='filial'] {
+  --color-primary-100: #fff3e0;
+  --color-primary-200: #ffe0b2;
+  --color-primary-300: #ffcc80;
+  --color-primary-400: #ffb74d;
+  --color-primary-500: #ff9800;
+  --color-primary-600: #fb8c00;
+  --color-primary-700: #f57c00;
+  --color-primary-800: #ef6c00;
+  --color-primary-900: #e65100;
+  --color-primary: var(--color-primary-600);
+}
